@@ -1,0 +1,199 @@
+
+.advantage-section.section,
+.advantage-section.section * {
+  box-sizing: border-box;
+}
+
+.advantage-section.section {
+  position: relative;
+  padding: 80px 0;
+}
+
+.advantage-section .container {
+  width: min(1200px, calc(100% - 40px));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.advantage-section .section-head {
+  max-width: 780px;
+  margin: 0 auto 55px;
+}
+
+.advantage-section .section-head.text-center { text-align: center; }
+.advantage-section :where(h1, h2, h3, h4, h5, h6, p, ul, ol) { margin: 0; }
+
+.advantage-section .section-title {
+  margin: 0 0 16px;
+  color: #0f172a;
+  font: 800 clamp(30px, 3.6vw, 44px)/1.15 'Outfit', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.advantage-section .section-subtitle {
+  max-width: 660px;
+  margin: 0 auto;
+  color: #475569;
+  font: 16px/1.65 'Outfit', sans-serif;
+}
+
+.advantage-section .section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 6px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #ff5722;
+  font: 700 11px 'Outfit', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.advantage-section .section-badge.cyan { color: #0284c7; background: #f0f9ff; border-color: #e0f2fe; }
+.advantage-section .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff5722; animation: section-pulse 2s infinite ease-in-out; }
+.advantage-section .badge-dot.cyan { background: #0284c7; }
+
+@keyframes section-pulse {
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+.advantage-section .text-gradient-orange {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff5722, #ff8a65 50%, #ea580c);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.advantage-section .btn-primary-pill {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff5722, #ff7043);
+  box-shadow: 0 10px 25px rgba(255, 87, 34, 0.25);
+  color: #fff !important;
+  cursor: pointer;
+  font: 700 14px 'Outfit', sans-serif;
+  transition: 0.25s ease;
+}
+
+.advantage-section .btn-primary-pill:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255, 87, 34, 0.35); }
+.advantage-section :where(input, textarea, select, button) { font: inherit; color: inherit; }
+.advantage-section :where(button) { cursor: pointer; }
+.advantage-section :where(a) { color: inherit; text-decoration: none; }
+.advantage-section :where(img) { display: block; max-width: 100%; }
+
+@media (max-width: 768px) {
+  .advantage-section.section { padding: 56px 0; }
+  .advantage-section .container { width: calc(100% - 36px); }
+  .advantage-section .section-head { margin-bottom: 36px; }
+}
+
+.advantage-section { font-family: 'Outfit', sans-serif; color: #0f172a; }
+/* =========================================================================
+   4. ADVANTAGE SECTION (5 Pillars Bento Grid)
+   ========================================================================= */
+.advantage-section {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.pillars-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-bottom: 40px;
+}
+
+.pillar-bento-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+}
+
+.pillar-bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  border-color: #ffd8cc;
+}
+
+/* Span last 2 cards to fill row gracefully in 3-column layout */
+.pillar-bento-card:nth-child(4) {
+  grid-column: span 1;
+}
+
+.pillar-bento-card:nth-child(5) {
+  grid-column: span 2;
+}
+
+.pillar-num-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #fff7ed;
+  border: 1px solid #ffd8cc;
+  color: #ff5722;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.pillar-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.pillar-card-tagline {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-bottom: 12px;
+}
+
+.pillar-card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.pillar-highlight-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  width: fit-content;
+}
+
+.highlight-icon {
+  color: #ff5722;
+}
+@media (max-width: 1100px) { .pillars-bento-grid { grid-template-columns: repeat(2, 1fr); } .pillar-bento-card:nth-child(5) { grid-column: span 1; } }
+@media (max-width: 768px) { .pillars-bento-grid, .vision-mission-cards { grid-template-columns: 1fr; } }

@@ -1,0 +1,286 @@
+
+.partners-section.section,
+.partners-section.section * {
+  box-sizing: border-box;
+}
+
+.partners-section.section {
+  position: relative;
+  padding: 80px 0;
+}
+
+.partners-section .container {
+  width: min(1200px, calc(100% - 40px));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.partners-section .section-head {
+  max-width: 780px;
+  margin: 0 auto 55px;
+}
+
+.partners-section .section-head.text-center { text-align: center; }
+.partners-section :where(h1, h2, h3, h4, h5, h6, p, ul, ol) { margin: 0; }
+
+.partners-section .section-title {
+  margin: 0 0 16px;
+  color: #0f172a;
+  font: 800 clamp(30px, 3.6vw, 44px)/1.15 'Outfit', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.partners-section .section-subtitle {
+  max-width: 660px;
+  margin: 0 auto;
+  color: #475569;
+  font: 16px/1.65 'Outfit', sans-serif;
+}
+
+.partners-section .section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 6px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #ff5722;
+  font: 700 11px 'Outfit', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.partners-section .section-badge.cyan { color: #0284c7; background: #f0f9ff; border-color: #e0f2fe; }
+.partners-section .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff5722; animation: section-pulse 2s infinite ease-in-out; }
+.partners-section .badge-dot.cyan { background: #0284c7; }
+
+@keyframes section-pulse {
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+.partners-section .text-gradient-orange {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff5722, #ff8a65 50%, #ea580c);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.partners-section .btn-primary-pill {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff5722, #ff7043);
+  box-shadow: 0 10px 25px rgba(255, 87, 34, 0.25);
+  color: #fff !important;
+  cursor: pointer;
+  font: 700 14px 'Outfit', sans-serif;
+  transition: 0.25s ease;
+}
+
+.partners-section .btn-primary-pill:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255, 87, 34, 0.35); }
+.partners-section :where(input, textarea, select, button) { font: inherit; color: inherit; }
+.partners-section :where(button) { cursor: pointer; }
+.partners-section :where(a) { color: inherit; text-decoration: none; }
+.partners-section :where(img) { display: block; max-width: 100%; }
+
+@media (max-width: 768px) {
+  .partners-section.section { padding: 56px 0; }
+  .partners-section .container { width: calc(100% - 36px); }
+  .partners-section .section-head { margin-bottom: 36px; }
+}
+
+.partners-section { font-family: 'Outfit', sans-serif; color: #0f172a; }
+/* =========================================================================
+   5. PARTNERS SECTION (Strictly 4 Partners & 4cm x 4cm Marquee)
+   ========================================================================= */
+.partners-section {
+  background: #ffffff;
+}
+
+.partners-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 45px;
+}
+
+.partner-showcase-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.partner-showcase-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  border-color: #ffd8cc;
+}
+
+.partner-logo-stage {
+  width: 100%;
+  height: 140px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Dark stage for Redbook Events logo (transparent white text) */
+.partner-logo-stage.dark-stage {
+  background: #0f172a;
+  border-bottom-color: #1e293b;
+}
+
+.partner-showcase-img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  display: block;
+}
+
+.partner-showcase-meta {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.partner-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.partner-category {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.partner-verified-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #16a34a;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-top: auto;
+}
+
+/* User requirement: Exactly 4cm x 4cm marquee partner cards */
+.marquee-wrapper {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 22px 28px;
+  overflow: hidden;
+}
+
+.marquee-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ticker-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ff5722;
+}
+
+.ticker-sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.marquee-strip {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-rail {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  animation: marquee-scroll 24s linear infinite;
+}
+
+.marquee-rail:hover {
+  animation-play-state: paused;
+}
+
+/* User requirement: STRICTLY 4cm width and 4cm height */
+.marquee-partner-card {
+  width: 4cm !important;
+  height: 4cm !important;
+  min-width: 4cm !important;
+  min-height: 4cm !important;
+  max-width: 4cm !important;
+  max-height: 4cm !important;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35cm;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.marquee-partner-card:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.09);
+  border-color: #ffd8cc;
+}
+
+/* Dark card for Redbook Events logo */
+.marquee-partner-card.dark-card {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+.marquee-partner-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 1100px) { .partners-showcase-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .partners-showcase-grid { grid-template-columns: 1fr; } }
