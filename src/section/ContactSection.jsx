@@ -1,232 +1,278 @@
-import { useEffect, useState } from 'react';
-import { CheckCircle2, MapPin, Mail, Phone, ExternalLink, Send } from 'lucide-react';
-import { companyDetails } from '../data/content';
-import './ContactSection.css';
 
-export default function ContactSection({ selectedService, onServiceChange }) {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  useEffect(() => { setSubmitted(false); }, [selectedService]);
-  const handleInputChange = (event) => setForm((previous) => ({ ...previous, [event.target.name]: event.target.value }));
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const subject = encodeURIComponent(`Project Enquiry: ${form.name} [${selectedService}]`);
-    const bodyText = encodeURIComponent(`ASPL Tech Solutions Project Enquiry:\n\nFull Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nCompany: ${form.company}\nService: ${selectedService}\n\nProject Requirements:\n${form.message}`);
-    window.location.href = `mailto:${companyDetails.email}?subject=${subject}&body=${bodyText}`;
-    setSubmitted(true);
+import { useState } from "react";
+import {
+  ArrowRight,
+  Send,
+  Phone,
+  Mail,
+  Clock3,
+  MapPin,
+} from "lucide-react";
+import "./ContactSection.css";
+
+const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    projectType: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Connect this form to your backend or email service when ready.
+    console.log("Contact form submission:", formData);
+    alert("Thank you! Your request has been captured.");
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      projectType: "",
+      message: "",
+    });
+  };
+
+  const contactCards = [
+    {
+      icon: Phone,
+      title: "Phone",
+      content: "+91 9688941297",
+      href: "tel:+919688941297",
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      content: "Yari.Innovative@gmail.com",
+      href: "mailto:Yari.Innovative@gmail.com",
+    },
+    {
+      icon: Clock3,
+      title: "RESPONSE",
+      content: "We Usually Respond Within 1 Business Day",
+      href: null,
+    },
+  ];
+
+  const responseSteps = [
+    "Share Your Project Goals And Current Challenges.",
+    "Get A Practical Consultation With Suggested Next Steps.",
+    "Move Into Design, Development, Integration, Or Support.",
+  ];
+
   return (
-<section id="contact" className="section contact-section">
-        <div className="container">
-          <div className="section-head text-center">
-            <div className="section-badge">
-              <span className="badge-dot" />
-              <span>HEADQUARTERS & CONTACT</span>
-            </div>
-            <h2 className="section-title">
-              Let's Build Something <span className="text-gradient-orange">Exceptional Together</span>
-            </h2>
-            <p className="section-subtitle">
-              Bring your digital vision to life. Contact ASPL Tech Solutions to map out your next website, app, or digital marketing campaign. Get in touch today for a strategic consultation focused on your goals.
-            </p>
-          </div>
+    <div className="contact-page">
+      {/* Contact Hero */}
+      <section className="contact-hero">
+        <div className="contact-hero-content">
+          <span className="contact-eyebrow">
+            START A CONVERSATION
+          </span>
 
-          <div className="contact-main-grid">
-            {/* Left Column: Direct Channels & Interactive Bengaluru Map */}
-            <div className="contact-info-col">
-              <div className="contact-channel-card">
-                <div className="channel-icon-box orange">
-                  <Phone size={22} />
-                </div>
-                <div className="channel-text">
-                  <small>Call or WhatsApp</small>
-                  <a href={`tel:${companyDetails.rawPhone}`} className="channel-link">
-                    <strong>{companyDetails.phone}</strong>
-                  </a>
-                  <span>Mon – Sat: 9:30 AM – 6:30 PM IST</span>
-                </div>
-              </div>
+          <h1>
+            Speak With a Specialist
+            <br />
+            For Your <span>Digital Needs</span>
+          </h1>
 
-              <div className="contact-channel-card">
-                <div className="channel-icon-box cyan">
-                  <Mail size={22} />
-                </div>
-                <div className="channel-text">
-                  <small>Direct Email</small>
-                  <a href={`mailto:${companyDetails.email}`} className="channel-link">
-                    <strong>{companyDetails.email}</strong>
-                  </a>
-                  <span>Quick response within 24 hours</span>
-                </div>
-              </div>
+          <p>
+            Connect with ASPL Tech Solutions for software development,
+            web and mobile applications, digital marketing, UI/UX
+            design, custom business solutions, and dependable
+            technical support.
+          </p>
 
-              {/* Singasandra, Bengaluru Office Map Card */}
-              <div className="contact-office-map-card">
-                <div className="office-card-header">
-                  <div className="channel-icon-box cyan">
-                    <MapPin size={22} />
-                  </div>
-                  <div className="office-header-meta">
-                    <small>Office Address</small>
-                    <p className="office-address-text">{companyDetails.address}</p>
-                  </div>
-                  <a
-                    href={companyDetails.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="office-map-direct-btn"
-                    title="Open Singasandra office in Google Maps"
-                  >
-                    <span>Open in Maps</span>
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
+          <div className="contact-hero-actions">
+            <a href="#contact-form" className="contact-btn contact-btn-primary">
+              Send Your Requirement <Send size={18} />
+            </a>
 
-                {/* Fully clickable map frame: clicking anywhere opens exact ASPL Google Maps link */}
-                <a
-                  href={companyDetails.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="interactive-map-anchor"
-                  title="Click to open exact location of ASPL Tech Solutions in Singasandra, Bengaluru on Google Maps"
-                >
-                  <div className="interactive-map-stage">
-                    <iframe
-                      src={companyDetails.embedMapUrl}
-                      width="100%"
-                      height="210"
-                      style={{ border: 0, borderRadius: '16px', pointerEvents: 'none' }}
-                      loading="lazy"
-                      title="ASPL Tech Solutions Bengaluru Headquarters Map"
-                    />
-                    <div className="map-click-overlay-pill">
-                      <MapPin size={14} className="map-pin-pulse" />
-                      <span>📍 Singasandra, Bengaluru · Click to Open in Google Maps</span>
-                      <ExternalLink size={12} />
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Right Column: High-End Contact Form */}
-            <div className="contact-form-col">
-              <div className="contact-form-card">
-                <div className="form-heading-area">
-                  <h3>Tell us about your project</h3>
-                  <p>Share your vision and requirements. We'll respond with actionable insights.</p>
-                </div>
-
-                {submitted ? (
-                  <div className="form-submission-success">
-                    <CheckCircle2 size={44} className="success-check-icon" />
-                    <h4>Thank You, {form.name}!</h4>
-                    <p>
-                      Your enquiry has been prepared and opened in your email client addressed to{' '}
-                      <strong>{companyDetails.email}</strong>. We look forward to learning more about your project.
-                    </p>
-                    <button
-                      className="btn-primary-pill"
-                      style={{ marginTop: '16px' }}
-                      onClick={() => setSubmitted(false)}
-                    >
-                      <span>Submit Another Enquiry</span>
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="modern-contact-form">
-                    <div className="form-fields-grid-2">
-                      <div className="form-field-group">
-                        <label className="field-label">Full Name *</label>
-                        <input
-                          name="name"
-                          value={form.name}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="e.g. Anand Kumar"
-                          className="modern-input"
-                        />
-                      </div>
-
-                      <div className="form-field-group">
-                        <label className="field-label">Work Email *</label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={form.email}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="e.g. anand@company.com"
-                          className="modern-input"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-fields-grid-2">
-                      <div className="form-field-group">
-                        <label className="field-label">Phone / WhatsApp *</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={form.phone}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="e.g. +91 98765 43210"
-                          className="modern-input"
-                        />
-                      </div>
-
-                      <div className="form-field-group">
-                        <label className="field-label">Company / Brand</label>
-                        <input
-                          name="company"
-                          value={form.company}
-                          onChange={handleInputChange}
-                          placeholder="e.g. Tech Corp"
-                          className="modern-input"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-field-group">
-                      <label className="field-label">Primary Service Needed *</label>
-                      <select
-                        name="service"
-                        value={selectedService}
-                        onChange={(event) => onServiceChange(event.target.value)}
-                        className="modern-select"
-                      >
-                        <option value="Web Development">Web Development (Corporate & Web Portals)</option>
-                        <option value="Applications Development">App Development</option>
-                        <option value="Digital Marketing">Digital Marketing</option>
-                        <option value="All 3 Integrated">Integrated Package (Web + App + Marketing)</option>
-                      </select>
-                    </div>
-
-                    <div className="form-field-group">
-                      <label className="field-label">Project Details & Objectives *</label>
-                      <textarea
-                        name="message"
-                        value={form.message}
-                        onChange={handleInputChange}
-                        required
-                        rows={4}
-                        placeholder="Tell us about your project, timeline, and goals..."
-                        className="modern-textarea"
-                      />
-                    </div>
-
-                    <button type="submit" className="form-submit-pill-btn">
-                      <span>Send Project Enquiry</span>
-                      <Send size={16} />
-                    </button>
-                  </form>
-                )}
-              </div>
-            </div>
+            <a
+              href="tel:+919688941297"
+              className="contact-btn contact-btn-secondary"
+            >
+              <Phone size={17} fill="currentColor" /> Call Now
+            </a>
           </div>
         </div>
-  </section>
+      </section>
+
+      {/* Contact Information */}
+      <section className="contact-info-section">
+        <div className="contact-info-grid">
+          {contactCards.map((card) => {
+            const Icon = card.icon;
+
+            return (
+              <div className="contact-info-card" key={card.title}>
+                <div className="contact-info-icon">
+                  <Icon size={26} />
+                </div>
+
+                <div className="contact-info-text">
+                  <h3>{card.title}</h3>
+
+                  {card.href ? (
+                    <a href={card.href}>{card.content}</a>
+                  ) : (
+                    <p>{card.content}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Office Location */}
+      <section className="contact-location-section">
+        <span className="contact-section-label">LOCATION</span>
+
+        <h2>Bengaluru, Karnataka, India</h2>
+
+        <p className="contact-location-description">
+          Visit us to discuss your ideas, business requirements,
+          and technology goals.
+        </p>
+
+        <div className="contact-map">
+          <iframe
+            title="Map of Bengaluru, Karnataka"
+            src="https://maps.google.com/maps?q=Bengaluru%2C%20Karnataka%2C%20India&t=&z=12&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </section>
+
+      {/* Response Process and Form */}
+      <section className="contact-process-section" id="contact-form">
+        <div className="contact-process-card">
+          <h2>How We Respond</h2>
+
+          <h3>
+            Clear Conversations
+            <br />
+            Before Clean Delivery.
+          </h3>
+
+          <p>
+            We start by understanding your business process,
+            immediate pain points, timeline, and the result you
+            want your users to experience.
+          </p>
+
+          <div className="contact-response-steps">
+            {responseSteps.map((step, index) => (
+              <div className="contact-response-step" key={step}>
+                <span>{index + 1}</span>
+                <p>{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="contact-form-card">
+          <span className="contact-section-label">
+            SEND A MESSAGE
+          </span>
+
+          <h2>Tell Us What You Need.</h2>
+
+          <form onSubmit={handleSubmit}>
+            <div className="contact-form-grid">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={handleChange}
+                autoComplete="name"
+                required
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                value={formData.email}
+                onChange={handleChange}
+                autoComplete="email"
+                required
+              />
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                autoComplete="tel"
+              />
+
+              <select
+                name="projectType"
+                value={formData.projectType}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Project type
+                </option>
+                <option value="Software Development">
+                  Software Development
+                </option>
+                <option value="Web Development">
+                  Web Development
+                </option>
+                <option value="App Development">
+                  App Development
+                </option>
+                <option value="UI/UX Design">UI/UX Design</option>
+                <option value="Digital Marketing">
+                  Digital Marketing
+                </option>
+                <option value="Podcast & Creator Studio">
+                  Podcast & Creator Studio
+                </option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <textarea
+              name="message"
+              placeholder="Tell us about your requirement"
+              value={formData.message}
+              onChange={handleChange}
+              rows={5}
+              required
+            />
+
+            <p className="contact-form-note">
+              Your information will be used to respond to your inquiry.
+            </p>
+
+            <button
+              type="submit"
+              className="contact-btn contact-btn-primary contact-submit-btn"
+            >
+              Submit Request <Send size={17} />
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
   );
-}
+};
+
+export default ContactSection;

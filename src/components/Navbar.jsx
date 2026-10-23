@@ -1,150 +1,88 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
-import logo from '../assets/logo.png';
-import './Navbar.css';
 
-const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'services', label: 'Services' },
-  { id: 'approach', label: 'Our Approach' },
-  { id: 'partners', label: 'Partners' },
-  { id: 'contact', label: 'Contact' },
-];
+// src/components/Navbar.jsx
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, Menu, X } from "lucide-react";
+import logo from "../assets/logoo.png";
+import "./Navbar.css";
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-      const sections = ['home', 'about', 'services', 'approach', 'partners', 'contact'];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 180 && rect.bottom >= 180) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
+  const links = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact Us", href: "/contact" },
+  ];
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (id) => {
-    setOpen(false);
-    setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      const navOffset = 95;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={`navbar-wrapper ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="navbar-pill">
-        {/* Brand Logo only (no duplicate text) */}
-        <a
-          href="#home"
-          className="navbar-brand"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('home');
-          }}
-          aria-label="ASPL Tech Solutions"
+    <header className="aspl-header">
+      <div className="aspl-navbar">
+        {/* Company Logo */}
+        <Link
+          to="/"
+          className="aspl-logo"
+          onClick={closeMenu}
+          aria-label="ASPL Home"
         >
-          <img src={logo} alt="ASPL Tech Solutions" className="navbar-logo-img" />
-        </a>
+          <img
+            src={logo}
+            alt="ASPL Tech Solutions Private Limited"
+          />
+        </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="navbar-links" aria-label="Main Navigation">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`nav-link-btn ${activeSection === item.id ? 'active' : ''}`}
-            >
-              {item.label}
-              {activeSection === item.id && <span className="nav-active-indicator" />}
-            </button>
-          ))}
+        {/* Mobile Menu Toggle */}
+        <button
+          type="button"
+          className="aspl-menu-toggle"
+          onClick={() => setMenuOpen((previous) => !previous)}
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={menuOpen}
+          aria-controls="aspl-main-navigation"
+        >
+          {menuOpen ? <X size={25} /> : <Menu size={25} />}
+        </button>
+
+        {/* Navigation Links */}
+        <nav
+          id="aspl-main-navigation"
+          className={`aspl-nav-links ${menuOpen ? "active" : ""}`}
+          aria-label="Main navigation"
+        >
+          {links.map((link) => {
+            const isActive = location.pathname === link.href;
+
+            return (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={closeMenu}
+                className={isActive ? "active-link" : ""}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Right CTA Button */}
-        <div className="navbar-actions">
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="navbar-cta-btn"
-          >
-            <span>Get in Touch</span>
-            <ArrowRight size={15} />
-          </button>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            className="navbar-mobile-toggle"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle navigation menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+        {/* Contact Button */}
+        <Link
+          to="/contact"
+          className="aspl-connect-btn"
+          onClick={closeMenu}
+        >
+          Let's Connect <ArrowRight size={17} />
+        </Link>
       </div>
-
-      {/* Mobile Drawer Menu */}
-      {open && (
-        <div className="mobile-menu-overlay" onClick={() => setOpen(false)}>
-          <div className="mobile-menu-card" onClick={(e) => e.stopPropagation()}>
-            <div className="mobile-menu-header">
-              <img src={logo} alt="ASPL Tech Solutions" className="mobile-logo-img" />
-              <button
-                className="mobile-close-btn"
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="mobile-menu-links">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`mobile-nav-btn ${activeSection === item.id ? 'active' : ''}`}
-                >
-                  <span>{item.label}</span>
-                  <ArrowRight size={16} />
-                </button>
-              ))}
-            </div>
-
-            <div className="mobile-menu-footer">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="mobile-cta-btn"
-              >
-                <span>Book Consultation</span>
-                <ArrowRight size={16} />
-              </button>
-              <p className="mobile-hub-text">Singasandra, Bengaluru · Karnataka</p>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
-}
+};
+
+export default Navbar;

@@ -1,281 +1,344 @@
-.navbar-wrapper {
-  --brand-orange: #ff5722;
-  --gradient-brand: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
-  font-family: 'Outfit', sans-serif;
-  color: #0f172a;
-  position: sticky;
-  top: 16px;
+
+/* =========================================
+   ASPL NAVBAR — FIXED FOR THE WHOLE WEBSITE
+========================================= */
+
+.aspl-header {
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
-  width: 88%;
-  max-width: 1280px;
-  margin: 0 auto;
-  pointer-events: none;
-  transition: all 0.3s ease;
+  z-index: 9999;
+
+  width: 100%;
+  padding: 16px 0 18px;
+
+  background: #001a33;
+  box-sizing: border-box;
 }
 
-.navbar-wrapper, .navbar-wrapper * { box-sizing: border-box; }
-.navbar-wrapper :where(button) { font-family: inherit; }
+.aspl-header *,
+.aspl-header *::before,
+.aspl-header *::after {
+  box-sizing: border-box;
+}
 
-.navbar-pill {
-  pointer-events: auto;
-  /* Slight blue background requested by user */
-  background: rgba(234, 242, 251, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid #cde0f4;
-  border-radius: 999px;
-  height: 66px;
-  padding: 0 14px 0 26px;
+.aspl-header a {
+  text-decoration: none;
+}
+
+/* =========================================
+   SPACE FOR THE FIXED NAVBAR
+========================================= */
+
+body {
+  padding-top: 102px;
+}
+
+/* =========================================
+   NAVBAR CONTAINER
+========================================= */
+
+.aspl-navbar {
+  width: min(1178px, calc(100% - 40px));
+  height: 68px;
+  min-height: 68px;
+
+  margin: 0 auto;
+  padding: 12px 80px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
-  transition: all 0.3s ease;
+  gap: 24px;
+
+  background: #34495f;
+  border: 0.5px solid #087ca4;
+  border-radius: 64px;
 }
 
-.navbar-wrapper.is-scrolled .navbar-pill {
-  background: rgba(234, 242, 251, 0.98);
-  border-color: #b9d5f2;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
-  transform: translateY(-2px);
-}
+/* =========================================
+   COMPANY LOGO
+========================================= */
 
-/* Brand Logo only */
-.navbar-brand {
+.aspl-logo {
   display: flex;
   align-items: center;
-  text-decoration: none;
+  justify-content: flex-start;
+
+  flex-shrink: 0;
+  width: 150px;
+}
+
+.aspl-logo img {
+  display: block;
+  width: 130px;
+  height: 48px;
+
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* =========================================
+   NAVIGATION LINKS
+========================================= */
+
+.aspl-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
   flex-shrink: 0;
 }
 
-.navbar-logo-img {
-  height: 38px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-  display: block;
+.aspl-nav-links li {
+  margin: 0;
+  padding: 0;
 }
 
-/* Navigation Links */
-.navbar-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
+.aspl-nav-links a {
+  display: inline-block;
+  padding: 6px 0;
 
-.nav-link-btn {
-  position: relative;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
-  background: none;
-  border: none;
-  padding: 8px 4px;
-  cursor: pointer;
-  transition: color 0.2s ease;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   white-space: nowrap;
+
+  transition: color 0.2s ease;
 }
 
-.nav-link-btn:hover {
-  color: var(--brand-orange);
+.aspl-nav-links a:hover,
+.aspl-nav-links a.active-link {
+  color: #ff6848;
 }
 
-.nav-link-btn.active {
-  color: var(--brand-orange);
-  font-weight: 700;
-}
+/* =========================================
+   LET'S CONNECT BUTTON
+========================================= */
 
-.nav-active-indicator {
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--brand-orange);
-}
+.aspl-connect-btn {
+  height: 50px;
+  min-height: 50px;
+  padding: 0 25px;
 
-/* Actions */
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.navbar-cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: var(--gradient-brand);
-  color: #ffffff !important;
-  font-family: 'Outfit', sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
-  height: 44px;
-  padding: 0 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 50px;
+
+  background: #f74728;
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
-.navbar-cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(255, 87, 34, 0.42);
+.aspl-connect-btn:hover {
+  background: #ff7045;
+  transform: translateY(-1px);
 }
 
-.navbar-mobile-toggle {
+.aspl-connect-btn svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+/* =========================================
+   MOBILE MENU TOGGLE
+========================================= */
+
+.aspl-menu-toggle {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #cde0f4;
-  color: #0f172a;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  background: transparent;
+  color: #ffffff;
+  border: none;
+
   cursor: pointer;
 }
 
-/* Mobile Drawer */
-.mobile-menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 1050;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px;
-  pointer-events: auto;
-  animation: fadeIn 0.2s ease;
+.aspl-menu-toggle svg {
+  width: 25px;
+  height: 25px;
 }
 
-.mobile-menu-card {
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border: 1px solid #cde0f4;
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
-  animation: slideDown 0.25s ease;
-}
+/* =========================================
+   TABLET
+========================================= */
 
-.mobile-menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.mobile-logo-img {
-  height: 34px;
-  width: auto;
-  object-fit: contain;
-}
-
-.mobile-close-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #475569;
-}
-
-.mobile-menu-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 20px 0;
-}
-
-.mobile-nav-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 14px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: #1e293b;
-  background: #f8fafc;
-  border: 1px solid #edf2f7;
-  text-align: left;
-  transition: all 0.2s ease;
-}
-
-.mobile-nav-btn:hover,
-.mobile-nav-btn.active {
-  background: #fff7ed;
-  border-color: #fed7aa;
-  color: var(--brand-orange);
-}
-
-.mobile-menu-footer {
-  padding-top: 14px;
-  border-top: 1px solid #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mobile-cta-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  height: 48px;
-  border-radius: 999px;
-  background: var(--gradient-brand);
-  color: #ffffff;
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.mobile-hub-text {
-  text-align: center;
-  font-size: 12px;
-  color: #64748b;
-  font-weight: 500;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-16px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@media (max-width: 960px) {
-  .navbar-wrapper {
-    width: 92%;
-    top: 12px;
+@media (max-width: 1250px) {
+  .aspl-navbar {
+    width: calc(100% - 48px);
+    padding: 12px 40px;
+    gap: 20px;
   }
-  .navbar-links {
+
+  .aspl-logo {
+    width: 130px;
+  }
+
+  .aspl-logo img {
+    width: 115px;
+  }
+
+  .aspl-nav-links {
+    gap: clamp(18px, 2.5vw, 32px);
+  }
+
+  .aspl-nav-links a {
+    font-size: 15px;
+  }
+
+  .aspl-connect-btn {
+    height: 46px;
+    min-height: 46px;
+    padding: 0 20px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+  body {
+    padding-top: 86px;
+  }
+
+  .aspl-header {
+    padding: 12px 16px;
+  }
+
+  .aspl-navbar {
+    width: 100%;
+    height: auto;
+    min-height: 62px;
+
+    padding: 8px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    border-radius: 32px;
+  }
+
+  .aspl-logo {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .aspl-logo img {
+    width: 100px;
+    height: 42px;
+  }
+
+  .aspl-menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+    order: 3;
+  }
+
+  .aspl-connect-btn {
+    height: 40px;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 12px;
+
+    order: 2;
+  }
+
+  .aspl-nav-links {
     display: none;
+
+    width: 100%;
+    flex: 0 0 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+
+    order: 4;
+    padding-top: 8px;
   }
-  .navbar-mobile-toggle {
+
+  .aspl-nav-links.active {
     display: flex;
+  }
+
+  .aspl-nav-links a {
+    display: block;
+    width: 100%;
+    padding: 12px 4px;
+
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .aspl-nav-links a:last-child {
+    border-bottom: none;
+  }
+}
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+  body {
+    padding-top: 78px;
+  }
+
+  .aspl-header {
+    padding: 8px 10px;
+  }
+
+  .aspl-navbar {
+    padding: 7px 10px;
+    gap: 6px;
+  }
+
+  .aspl-logo img {
+    width: 78px;
+    height: 36px;
+  }
+
+  .aspl-connect-btn {
+    height: 36px;
+    min-height: 36px;
+    padding: 0 10px;
+    gap: 5px;
+
+    font-size: 10px;
+  }
+
+  .aspl-connect-btn svg {
+    width: 14px;
+    height: 14px;
   }
 }

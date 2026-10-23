@@ -1,185 +1,135 @@
-import {
-  ArrowRight,
-  Mail,
-  Phone,
-  Sparkles,
-  MapPin,
-  ExternalLink,
-} from 'lucide-react';
-import { companyDetails, coreServices, partners } from '../data/content';
-import logo from '../assets/logo.png';
-import './Footer.css';
+// src/components/Footer.jsx
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+import React from "react";
+import { ArrowUp, ChevronUp } from "lucide-react";
+import "./Footer.css";
+import asplLogo from "../assets/asplfooterlogo.png";
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const navOffset = 90;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
+const Footer = () => {
+  const companyLinks = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact Us", href: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { label: "Web Development", href: "#services" },
+    { label: "App Development", href: "#services" },
+    { label: "UI/UX Design", href: "#services" },
+    { label: "Digital Marketing", href: "#services" },
+    { label: "Podcast & Creator Studio", href: "#services" },
+  ];
 
   return (
-    <footer className="footer-container-wrap">
-      {/* Top Value Strip */}
-      <div className="footer-banner-strip">
-        <div className="container banner-inner">
-          <div className="banner-left">
-            <Sparkles size={16} className="banner-sparkle" />
-            <span>
-              <strong>Success is not a service. It is a partnership:</strong> Websites, apps, and digital marketing for your business.
-            </span>
+    <footer className="aspl-footer">
+      <div className="aspl-footer-inner">
+        <div className="aspl-footer-main">
+          {/* Company logo and description */}
+          <div className="aspl-footer-brand">
+            <a href="#home" className="aspl-footer-logo">
+              <img
+                src={asplLogo}
+                alt="ASPL Tech Solutions Private Limited"
+                loading="lazy"
+              />
+            </a>
+
+            <p>
+              ASPL Tech Solution empowers businesses through innovative
+              technology, digital transformation, and industry-focused training
+              to build a smarter digital future.
+            </p>
           </div>
-          <button onClick={() => scrollTo('contact')} className="banner-cta-btn">
-            <span>Schedule Consultation</span>
-            <ArrowRight size={14} />
-          </button>
+
+          {/* Company links */}
+          <div className="aspl-footer-column">
+            <h3>COMPANY</h3>
+
+            <ul>
+              {companyLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services links */}
+          <div className="aspl-footer-column">
+            <h3>SERVICES</h3>
+
+            <ul>
+              {serviceLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social links */}
+          <div className="aspl-footer-social">
+            <h3>FOLLOW US</h3>
+
+            <div className="aspl-social-links">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+              >
+                in
+              </a>
+
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+              >
+                ◎
+              </a>
+
+              <a
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+              >
+                ▶
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Main 4-Column Footer */}
-      <div className="container footer-main-content">
-        {/* Column 1: Brand Logo only & Company mission */}
-        <div className="footer-brand-col">
-          <a
-            href="#home"
-            className="footer-logo-link"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo('home');
-            }}
-          >
-            <img src={logo} alt="ASPL Tech Solutions Private Limited" className="footer-logo-img" />
-          </a>
-
-          <p className="footer-tagline-quote">"{companyDetails.quote}"</p>
-
-          <p className="footer-about-text">
-            ASPL Tech Solutions helps businesses build their online presence through web development,
-            app development, and digital marketing.
+        <div className="aspl-footer-bottom">
+          <p>
+            © 2024 ASPL Tech Solutions Private Limited. All rights reserved.
           </p>
 
-          <div className="footer-pills-row">
-            <span className="footer-pill">Digital</span>
-            <span className="footer-pill">Apps</span>
-            <span className="footer-pill">Marketing</span>
+          <div className="aspl-footer-legal">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <span className="aspl-footer-separator">|</span>
+            <a href="/terms-and-conditions">Terms &amp; Conditions</a>
           </div>
         </div>
 
-        {/* Column 2: Navigation Links (Partners instead of clients) */}
-        <div className="footer-col">
-          <h4 className="footer-col-title">Navigation</h4>
-          <ul className="footer-nav-list">
-            <li>
-              <button onClick={() => scrollTo('home')} className="footer-link-btn">
-                Home
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollTo('services')} className="footer-link-btn">
-                Services
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollTo('about')} className="footer-link-btn">
-                About ASPL
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollTo('approach')} className="footer-link-btn">
-                Our Approach
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollTo('partners')} className="footer-link-btn">
-                Official Partners
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollTo('contact')} className="footer-link-btn">
-                Contact & Map
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 3: Core Capabilities & Partners */}
-        <div className="footer-col">
-          <h4 className="footer-col-title">Core Services</h4>
-          <ul className="footer-nav-list">
-            {coreServices.map((service) => (
-              <li key={service.id}>
-                <button onClick={() => scrollTo('services')} className="footer-link-btn">
-                  {service.title}
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <h5 className="footer-sub-title" style={{ marginTop: '22px' }}>Official Partners</h5>
-          <ul className="footer-nav-list">
-            {partners.map((p) => (
-              <li key={p.id}>
-                <button onClick={() => scrollTo('partners')} className="footer-link-btn partner-sublink">
-                  {p.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Column 4: Bengaluru Headquarters Contact */}
-        <div className="footer-col">
-          <h4 className="footer-col-title">Headquarters</h4>
-          <div className="footer-contact-block">
-            <a
-              href={companyDetails.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-address-link"
-              title="Click to view ASPL office on Google Maps"
-            >
-              <MapPin size={18} className="footer-contact-icon orange" />
-              <div>
-                <small>Singasandra, Bengaluru Office</small>
-                <p>{companyDetails.address}</p>
-                <span className="open-maps-text">Open Google Maps ↗</span>
-              </div>
-            </a>
-
-            <a href={`tel:${companyDetails.rawPhone}`} className="footer-contact-link">
-              <Phone size={16} className="footer-contact-icon cyan" />
-              <div>
-                <small>Phone / WhatsApp</small>
-                <strong>{companyDetails.phone}</strong>
-              </div>
-            </a>
-
-            <a href={`mailto:${companyDetails.email}`} className="footer-contact-link">
-              <Mail size={16} className="footer-contact-icon orange" />
-              <div>
-                <small>Direct Email</small>
-                <strong>{companyDetails.email}</strong>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="footer-bottom-bar">
-        <div className="container footer-bottom-inner">
-          <p>© {currentYear} {companyDetails.legalName}. All rights reserved.</p>
-          <p className="bottom-location-stamp">Headquarters: Singasandra, Bengaluru, Karnataka 560100</p>
-        </div>
+        <button
+          type="button"
+          className="aspl-back-to-top"
+          aria-label="Back to top"
+          onClick={() =>
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }
+        >
+          <ChevronUp size={29} strokeWidth={1.8} />
+          <ChevronUp size={29} strokeWidth={1.8} />
+        </button>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

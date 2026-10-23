@@ -1,12 +1,89 @@
-.app-shell {
+
+/* =========================================
+   GLOBAL APP LAYOUT
+========================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
   background-color: #ffffff;
   overflow-x: hidden;
 }
 
-.app-shell main {
-  flex: 1;
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* =========================================
+   APP SHELL
+========================================= */
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
   background-color: #ffffff;
+  overflow-x: clip;
+}
+
+.app-shell main {
+  flex: 1 0 auto;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* =========================================
+   GLOBAL FONT
+========================================= */
+
+button,
+input,
+textarea,
+select {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* =========================================
+   RESPONSIVE MEDIA
+========================================= */
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+========================================= */
+
+@media (max-width: 768px) {
+  .app-shell,
+  .app-shell main {
+    width: 100%;
+  }
 }
