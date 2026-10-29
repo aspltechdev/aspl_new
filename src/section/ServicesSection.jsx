@@ -457,7 +457,7 @@ export default function ServicesSection() {
                   className="secondary-feature-button"
                   onClick={() => scrollTo("core-services")}
                 >
-                  Review Services
+                  Review Work
                 </button>
               </div>
             </div>

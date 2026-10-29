@@ -7,9 +7,11 @@ import {
   ArrowRight,
   X,
   Upload,
+  Search,
+  ChevronDown,
 } from "lucide-react";
 import "./Careers.css";
-
+import careersImage from "../assets/1stcareer.png";
 const jobs = [
   {
     id: "uiux",
@@ -49,6 +51,27 @@ const Careers = () => {
   const [expandedJob, setExpandedJob] = useState(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [jobCategory, setJobCategory] = useState("all");
+  const [jobType, setJobType] = useState("all");
+  const [experienceFilter, setExperienceFilter] = useState("all");
+  const [locationFilter, setLocationFilter] = useState("all");
+
+  const filteredJobs = jobs.filter((job) => {
+    const query = searchTerm.trim().toLowerCase();
+    const matchesSearch =
+      !query ||
+      [job.title, job.location, job.type, job.experience, job.skills, job.description]
+        .some((value) => value.toLowerCase().includes(query));
+    const matchesCategory = jobCategory === "all" || job.id === jobCategory;
+    const matchesType = jobType === "all" || job.type.toLowerCase() === jobType;
+    const matchesExperience =
+      experienceFilter === "all" || job.experience.toLowerCase() === experienceFilter;
+    const matchesLocation =
+      locationFilter === "all" || job.location.toLowerCase() === locationFilter;
+
+    return matchesSearch && matchesCategory && matchesType && matchesExperience && matchesLocation;
+  });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -189,21 +212,73 @@ const Careers = () => {
               View Open Roles <ArrowRight size={19} />
             </button>
 
-            <button
-              type="button"
-              className="careers-secondary-button"
-              onClick={() => openApplicationForm(jobs[0])}
-            >
-              Send Resume <ArrowRight size={19} />
-            </button>
+          
           </div>
         </div>
 
         <div className="careers-hero-image">
           <img
-            src="/images/career-person.png"
+            src={careersImage}
             alt="Professional exploring career opportunities"
           />
+        </div>
+      </section>
+
+      {/* Job search and filters */}
+      <section className="career-filter-section" aria-label="Search and filter jobs">
+        <div className="career-filter-bar">
+          <label className="career-search-box">
+            <Search size={21} aria-hidden="true" />
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Find your next opportunity"
+              aria-label="Search job opportunities"
+            />
+          </label>
+
+          <label className="career-filter-select">
+            <span className="sr-only">Job</span>
+            <select value={jobCategory} onChange={(event) => setJobCategory(event.target.value)}>
+              <option value="all">All Jobs</option>
+              {jobs.map((job) => <option key={job.id} value={job.id}>{job.title}</option>)}
+            </select>
+            <ChevronDown size={17} aria-hidden="true" />
+          </label>
+
+          <label className="career-filter-select">
+            <span className="sr-only">Job type</span>
+            <select value={jobType} onChange={(event) => setJobType(event.target.value)}>
+              <option value="all">Job-Type</option>
+              {[...new Set(jobs.map((job) => job.type.toLowerCase()))].map((type) => (
+                <option key={type} value={type}>{type.replace(/\b\w/g, (letter) => letter.toUpperCase())}</option>
+              ))}
+            </select>
+            <ChevronDown size={17} aria-hidden="true" />
+          </label>
+
+          <label className="career-filter-select">
+            <span className="sr-only">Experience</span>
+            <select value={experienceFilter} onChange={(event) => setExperienceFilter(event.target.value)}>
+              <option value="all">Experience</option>
+              {[...new Set(jobs.map((job) => job.experience.toLowerCase()))].map((experience) => (
+                <option key={experience} value={experience}>{experience}</option>
+              ))}
+            </select>
+            <ChevronDown size={17} aria-hidden="true" />
+          </label>
+
+          <label className="career-filter-select">
+            <span className="sr-only">Location</span>
+            <select value={locationFilter} onChange={(event) => setLocationFilter(event.target.value.toLowerCase())}>
+              <option value="all">Location</option>
+              {[...new Set(jobs.map((job) => job.location))].map((location) => (
+                <option key={location} value={location.toLowerCase()}>{location}</option>
+              ))}
+            </select>
+            <ChevronDown size={17} aria-hidden="true" />
+          </label>
         </div>
       </section>
 
@@ -213,15 +288,14 @@ const Careers = () => {
         id="open-roles"
       >
         <div className="career-jobs-heading">
-          <span>JOIN OUR TEAM</span>
-          <h2>Explore Open Positions</h2>
-          <p>
-            Find an opportunity that matches your skills and interests.
-          </p>
-        </div>
+  <span>AVAILABLE JOBS</span>
+  <h2>
+    Our <span className="career-heading-highlight">Current Openings</span>
+  </h2>
+</div>
 
         <div className="career-jobs-grid">
-          {jobs.map((job) => {
+          {filteredJobs.length > 0 ? filteredJobs.map((job) => {
             const isExpanded = expandedJob === job.id;
 
             return (
@@ -310,7 +384,9 @@ const Careers = () => {
                 )}
               </article>
             );
-          })}
+          }) : (
+            <p className="career-no-results">No jobs match your search. Try changing your filters.</p>
+          )}
         </div>
       </section>
 

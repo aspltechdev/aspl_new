@@ -140,8 +140,7 @@ const ContactSection = () => {
         <h2>Bengaluru, Karnataka, India</h2>
 
         <p className="contact-location-description">
-          Visit us to discuss your ideas, business requirements,
-          and technology goals.
+          For the final website, add the verified Google Maps embed for the current ASPL office location.
         </p>
 
         <div className="contact-map">
@@ -259,7 +258,7 @@ const ContactSection = () => {
             />
 
             <p className="contact-form-note">
-              Your information will be used to respond to your inquiry.
+              This site is protected by reCAPTCHA.
             </p>
 
             <button
