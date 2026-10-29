@@ -17,7 +17,6 @@ import rameshKumar from "../assets/rameshkumar.png";
 import { useState } from "react";
 import {
   ArrowRight,
-  ArrowUpRight,
   BriefcaseBusiness,
   Users,
   Rocket,
@@ -37,16 +36,22 @@ const services = [
     title: "Software Development",
     category: "software",
     image: thirdHomeImage,
+    description:
+      "Building scalable enterprise systems, seamless cloud integrations, and custom digital applications for modern businesses. We combine innovative technology, robust architecture, and user-focused engineering to deliver secure, efficient, and future-ready solutions that drive business growth and operational excellence.",
   },
   {
     title: "Digital Marketing",
     category: "marketing",
     image: fourthHomeImage,
+    description:
+      "We develop revenue-focused digital marketing strategies, targeted customer acquisition campaigns, and effective brand positioning to help businesses grow. By combining data-driven insights, performance analytics, and continuous optimization, we improve marketing efficiency, strengthen brand visibility, and deliver measurable results for sustainable business growth.",
   },
   {
     title: "Podcast & Creator Studio",
     category: "studio",
     image: fifthHomeImage,
+    description:
+      "We deliver end-to-end studio design, professional acoustic treatment, and advanced 4K recording infrastructure tailored to modern production needs. From space planning and sound optimization to broadcast equipment integration, our solutions create reliable, high-performance environments for professional recording, broadcasting, and content production.",
   },
 ];
 
@@ -313,13 +318,11 @@ const Home = () => {
       <section className="aspl-services" id="services">
         <div className="aspl-services-heading">
           <span className="aspl-eyebrow">OUR SERVICES</span>
-
           <h2>
             Three core services.
             <br />
             Built for enterprise impact.
           </h2>
-
           <p>
             End-to-end execution across bespoke software engineering,
             performance marketing, and physical studio setups.
@@ -327,7 +330,11 @@ const Home = () => {
         </div>
 
         <div className="aspl-services-controls">
-          <div className="aspl-filter-tabs" role="group" aria-label="Filter services">
+          <div
+            className="aspl-filter-tabs"
+            role="group"
+            aria-label="Filter services"
+          >
             {[
               { label: "All", value: "all" },
               { label: "Software & Web", value: "software" },
@@ -337,9 +344,7 @@ const Home = () => {
               <button
                 type="button"
                 key={filter.value}
-                className={
-                  activeFilter === filter.value ? "active" : ""
-                }
+                className={activeFilter === filter.value ? "active" : ""}
                 onClick={() => setActiveFilter(filter.value)}
               >
                 {filter.label}
@@ -354,27 +359,32 @@ const Home = () => {
 
         <div className="aspl-service-banners" aria-label="Our services">
           {filteredServices.map((service, index) => (
-            <a
-              href="#contact"
-              className="aspl-service-banner"
+            <article
+              className="aspl-service-card"
               key={service.category}
               style={{ "--service-index": index }}
             >
-              <img
-                src={service.image}
-                alt={service.title}
-                loading="lazy"
-              />
-              <span className="aspl-service-title">{service.title}</span>
-              <span className="aspl-service-arrow">
-                <ArrowUpRight size={20} />
-              </span>
-            </a>
+              <div className="aspl-service-image">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="aspl-service-content">
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <a href="#contact" className="aspl-service-cta">
+                  Explore our services <ArrowRight size={16} />
+                </a>
+              </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* APPROACH SECTION */}
+            {/* APPROACH SECTION */}
       <section className="aspl-approach" id="approach">
         <div className="aspl-approach-heading">
           <span className="aspl-eyebrow">OUR APPROACH</span>

@@ -31,8 +31,8 @@
 .contact-hero {
   min-height: 690px;
   display: flex;
-  align-items: center;
-  padding: 100px max(6.5%, calc((100% - 1320px) / 2));
+  align-items: flex-start;
+  padding: 130px max(6.5%, calc((100% - 1320px) / 2)) 80px;
   color: #fff;
   background:
     radial-gradient(

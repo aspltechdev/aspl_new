@@ -14,10 +14,14 @@ import {
 import "./AboutSection.css";
 import aboutOfficeImage from "../assets/1stabout.png";
 import aboutteamImage from "../assets/2ndabout.png";
+import aboutphilosophyImage from "../assets/3rdabout.png";
+import creativeStrategyImage from "../assets/4thabout.png";
+import broadcastStudioImage from "../assets/5thabout.png";
+import aboutApproachImage from "../assets/6thabout.png";
 
 const assets = {
   office: aboutOfficeImage,
-  belief: "/assets/about-belief.png",
+  belief: aboutphilosophyImage,
   culture: "/assets/about-culture.png",
   strategy: "/assets/about-strategy.png",
   studio: "/assets/about-studio.png",
@@ -267,23 +271,22 @@ function About() {
 
           <div className="about-culture-gallery">
             <article className="about-culture-feature">
-              <img
-                src={assets.culture}
-                alt="Creative workplace and collaborative environment"
-              />
+  <img
+    src={aboutphilosophyImage}
+    alt="ASPL team philosophy"
+  />
 
-              <div className="about-culture-feature-caption">
-                <span className="about-philosophy-badge">
-                  PHILOSOPHY
-                </span>
-                <h3>Good Ideas, Great People.</h3>
-              </div>
-            </article>
-
+  <div className="about-culture-feature-caption">
+    <span className="about-philosophy-badge">
+      PHILOSOPHY
+    </span>
+    <h3>Good Ideas, Great People.</h3>
+  </div>
+</article>
             <div className="about-culture-small-grid">
               <article className="about-culture-small-card">
                 <img
-                  src={assets.strategy}
+                  src={creativeStrategyImage}
                   alt="Team members planning creative strategies"
                 />
                 <span>Creative Strategy Sessions</span>
@@ -291,7 +294,7 @@ function About() {
 
               <article className="about-culture-small-card">
                 <img
-                  src={assets.studio}
+                  src={broadcastStudioImage}
                   alt="ASPL creator studio"
                 />
                 <span>Broadcast Creator Studio</span>
@@ -306,7 +309,7 @@ function About() {
         <div className="about-two-column about-approach-inner">
           <div className="about-approach-visual">
             <img
-              src={assets.approach}
+              src={aboutApproachImage}
               alt="ASPL team combining technology, creativity and strategy"
             />
 

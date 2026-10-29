@@ -1,374 +1,469 @@
 
-import { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-  ArrowRight,
-  Search,
-  ChevronDown,
-  Plus,
-  Minus,
-  Code2,
   MapPin,
   BriefcaseBusiness,
   Clock3,
+  ArrowRight,
+  X,
+  Upload,
 } from "lucide-react";
 import "./Careers.css";
-import careerImage from "../assets/1stcareer.png";
+
 const jobs = [
   {
-    id: 1,
+    id: "uiux",
     title: "UI/UX DESIGNER",
     location: "Bengaluru",
     type: "Full time",
     experience: "0-1 years",
-    category: "Design",
     skills: "UI/UX Design, Figma, Wireframing, Prototyping",
     description:
-      "Design intuitive digital experiences, create wireframes and prototypes, and collaborate with developers to deliver user-friendly products.",
-    requirements: [
-      "Knowledge of Figma and design systems.",
-      "Understanding of user research and usability principles.",
-      "Ability to create wireframes and interactive prototypes.",
-    ],
+      "Design intuitive and visually appealing websites, mobile applications, and software interfaces. Create wireframes, prototypes, and responsive UI designs while collaborating with developers to deliver seamless user experiences.",
+    requiredSkills:
+      "Figma, User Research, Prototyping, Responsive Design, Design Systems.",
+    education: "Bachelor's Degree or relevant qualification.",
+    experienceDetails:
+      "1-3 years. Freshers with a strong portfolio may also apply.",
   },
   {
-    id: 2,
+    id: "digital-marketing",
     title: "DIGITAL MARKETING",
     location: "Bengaluru",
     type: "Full time",
     experience: "0-1 years",
-    category: "Marketing",
     skills:
       "SEO, SEM, Social Media Marketing, Google Ads, Content Marketing",
     description:
-      "Help improve brand visibility, plan digital campaigns, manage social media platforms, and measure marketing performance.",
-    requirements: [
-      "Understanding of SEO and digital marketing.",
-      "Knowledge of social media platforms and analytics.",
-      "Creative thinking and communication skills.",
-    ],
+      "Plan and execute digital marketing campaigns to improve brand awareness, website traffic, and lead generation. Manage social media platforms, optimize website performance, and analyze campaign results to achieve business goals.",
+    requiredSkills:
+      "SEO, Google Analytics, Social Media Management, Email Marketing, and Digital Advertising.",
+    education:
+      "Bachelor's Degree in Marketing, Business, or a related field.",
+    experienceDetails:
+      "1-3 years. Freshers with relevant skills may also apply.",
   },
 ];
 
-const CareerSelect = ({ label, value, onChange, options }) => (
-  <div className="career-filter">
-    <select
-      aria-label={label}
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-    <ChevronDown size={16} aria-hidden="true" />
-  </div>
-);
-
-export default function Careers() {
-  const [search, setSearch] = useState("");
-  const [jobType, setJobType] = useState("All Jobs");
-  const [experience, setExperience] = useState("Experience");
-  const [location, setLocation] = useState("Location");
+const Careers = () => {
   const [expandedJob, setExpandedJob] = useState(null);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const filteredJobs = useMemo(() => {
-    const term = search.trim().toLowerCase();
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    location: "",
+    position: "",
+    experienceLevel: "0-1 Years",
+    resume: null,
+  });
 
-    return jobs.filter((job) => {
-      const matchesSearch =
-        !term ||
-        job.title.toLowerCase().includes(term) ||
-        job.skills.toLowerCase().includes(term) ||
-        job.location.toLowerCase().includes(term) ||
-        job.category.toLowerCase().includes(term);
-
-      const matchesType =
-        jobType === "All Jobs" || job.type === jobType;
-
-      const matchesExperience =
-        experience === "Experience" ||
-        job.experience === experience;
-
-      const matchesLocation =
-        location === "Location" || job.location === location;
-
-      return (
-        matchesSearch &&
-        matchesType &&
-        matchesExperience &&
-        matchesLocation
-      );
-    });
-  }, [search, jobType, experience, location]);
-
-  const scrollToJobs = () => {
-    document.getElementById("open-roles")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  // Expand or collapse only the clicked job.
+  const toggleJob = (jobId) => {
+    setExpandedJob((current) =>
+      current === jobId ? null : jobId
+    );
   };
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  // Open the form for the selected job.
+  const openApplicationForm = (job) => {
+    setFormData((previous) => ({
+      ...previous,
+      position: job.title,
+      experienceLevel: "0-1 Years",
+      resume: null,
+    }));
+
+    setShowApplicationForm(true);
+  };
+
+  const closeApplicationForm = () => {
+    setShowApplicationForm(false);
+  };
+
+  const handleChange = (event) => {
+    const { name, value, files } = event.target;
+
+    if (name === "resume") {
+      setFormData((previous) => ({
+        ...previous,
+        resume: files?.[0] || null,
+      }));
+      return;
+    }
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!formData.resume) {
+      alert("Please upload your resume.");
+      return;
+    }
+
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    if (!allowedTypes.includes(formData.resume.type)) {
+      alert("Please upload a PDF, DOC, or DOCX file.");
+      return;
+    }
+
+    if (formData.resume.size > 5 * 1024 * 1024) {
+      alert("Your resume must be 5 MB or smaller.");
+      return;
+    }
+
+    /*
+      Connect your backend API here.
+
+      Example using Axios:
+
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("phone", formData.phone);
+      data.append("email", formData.email);
+      data.append("location", formData.location);
+      data.append("position", formData.position);
+      data.append("experienceLevel", formData.experienceLevel);
+      data.append("resume", formData.resume);
+
+      await axios.post("/api/careers/apply", data);
+    */
+
+    try {
+      setSubmitting(true);
+
+      alert(
+        "Form validation successful. Connect your backend API to submit the application."
+      );
+    } catch (error) {
+      console.error("Application error:", error);
+      alert("Unable to process your application. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <main className="careers-page">
-      {/* HERO SECTION */}
-      <section className="careers-hero" id="careers-home">
-        <div className="careers-hero-inner">
-          <div className="careers-hero-content">
-            <span className="careers-eyebrow">
-              GROW YOUR CAREER
-            </span>
-
-            <h1>
-              Find Your Next Opportunity
-              <br />
-              With a{" "}
-              <span>Growing Tech Team</span>
-            </h1>
-
-            <p>
-              Explore roles where your ideas, skills, and ambition
-              can turn into meaningful work, stronger experience,
-              and long-term career growth.
-            </p>
-
-            <div className="careers-hero-actions">
-              <button
-                type="button"
-                className="careers-primary-btn"
-                onClick={scrollToJobs}
-              >
-                View Open Roles
-                <ArrowRight size={19} />
-              </button>
-
-              <button
-                type="button"
-                className="careers-secondary-btn"
-                onClick={scrollToContact}
-              >
-                Send Resume
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-
-        <div className="careers-hero-visual">
-  <img
-    src={careerImage}
-    alt="Professional representing career opportunities at ASPL"
-  />
-</div>
-        </div>
-      </section>
-
-      {/* SEARCH AND FILTERS */}
-      <section className="career-search-section" aria-label="Search jobs">
-        <div className="career-search-bar">
-          <label className="career-search-input">
-            <Search size={20} />
-            <input
-              type="search"
-              placeholder="Find your next opportunity"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-          </label>
-
-          <CareerSelect
-            label="Job type"
-            value={jobType}
-            onChange={setJobType}
-            options={[
-              "All Jobs",
-              "Full time",
-              "Part time",
-              "Internship",
-              "Contract",
-            ]}
-          />
-
-          <CareerSelect
-            label="Experience"
-            value={experience}
-            onChange={setExperience}
-            options={[
-              "Experience",
-              "0-1 years",
-              "1-3 years",
-              "3-5 years",
-              "5+ years",
-            ]}
-          />
-
-          <CareerSelect
-            label="Location"
-            value={location}
-            onChange={setLocation}
-            options={["Location", "Bengaluru"]}
-          />
-        </div>
-      </section>
-
-      {/* AVAILABLE JOBS */}
-      <section className="career-openings" id="open-roles">
-        <div className="career-openings-heading">
-          <span className="career-section-label">
-            AVAILABLE JOBS
+      {/* Careers hero */}
+      <section className="careers-hero">
+        <div className="careers-hero-content">
+          <span className="careers-eyebrow">
+            GROW YOUR CAREER
           </span>
 
-          <h2>
-            <span>Our</span>{" "}
-            <span className="career-orange-text">
-              Current Openings
-            </span>
-          </h2>
+          <h1>
+            Find Your Next Opportunity
+            <br />
+            With a <span>Growing Tech Team</span>
+          </h1>
+
+          <p>
+            Explore roles where your ideas, skills, and ambition can
+            turn into meaningful work, stronger experience, and
+            long-term career growth.
+          </p>
+
+          <div className="careers-hero-buttons">
+            <button
+              type="button"
+              className="careers-primary-button"
+              onClick={() =>
+                document
+                  .getElementById("open-roles")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              View Open Roles <ArrowRight size={19} />
+            </button>
+
+            <button
+              type="button"
+              className="careers-secondary-button"
+              onClick={() => openApplicationForm(jobs[0])}
+            >
+              Send Resume <ArrowRight size={19} />
+            </button>
+          </div>
         </div>
 
-        <div className="career-jobs-area">
-          <div className="career-jobs-grid">
-            {filteredJobs.length > 0 ? (
-              filteredJobs.map((job) => {
-                const isExpanded = expandedJob === job.id;
+        <div className="careers-hero-image">
+          <img
+            src="/images/career-person.png"
+            alt="Professional exploring career opportunities"
+          />
+        </div>
+      </section>
 
-                return (
-                  <article
-                    className={`career-job-card ${
-                      isExpanded ? "expanded" : ""
-                    }`}
-                    key={job.id}
-                  >
-                    <div className="career-job-top">
-                      <div className="career-job-info">
-                        <h3>{job.title}</h3>
+      {/* Open positions */}
+      <section
+        className="career-jobs-section"
+        id="open-roles"
+      >
+        <div className="career-jobs-heading">
+          <span>JOIN OUR TEAM</span>
+          <h2>Explore Open Positions</h2>
+          <p>
+            Find an opportunity that matches your skills and interests.
+          </p>
+        </div>
 
-                        <div className="career-job-meta">
-                          <span>
-                            <MapPin size={13} />
-                            {job.location}
-                          </span>
-                          <i />
-                          <span>
-                            <BriefcaseBusiness size={13} />
-                            {job.type}
-                          </span>
-                          <i />
-                          <span>
-                            <Clock3 size={13} />
-                            Experience: {job.experience}
-                          </span>
-                        </div>
+        <div className="career-jobs-grid">
+          {jobs.map((job) => {
+            const isExpanded = expandedJob === job.id;
 
-                        <p className="career-job-skills">
-                          <strong>Required Skills:</strong>{" "}
-                          {job.skills}
-                        </p>
-                      </div>
+            return (
+              <article
+                className={`career-job-card ${
+                  isExpanded ? "expanded" : ""
+                }`}
+                key={job.id}
+              >
+                <div className="career-job-header">
+                  <div className="career-job-heading-content">
+                    <h3>{job.title}</h3>
 
-                      <button
-                        type="button"
-                        className="career-job-toggle"
-                        aria-label={
-                          isExpanded
-                            ? `Collapse ${job.title}`
-                            : `View details for ${job.title}`
-                        }
-                        aria-expanded={isExpanded}
-                        onClick={() =>
-                          setExpandedJob(
-                            isExpanded ? null : job.id
-                          )
-                        }
-                      >
-                        {isExpanded ? (
-                          <Minus size={22} />
-                        ) : (
-                          <Plus size={22} />
-                        )}
-                      </button>
+                    <div className="career-job-meta">
+                      <span>
+                        <MapPin size={15} />
+                        {job.location}
+                      </span>
+
+                      <span className="career-meta-dot">•</span>
+
+                      <span>
+                        <BriefcaseBusiness size={15} />
+                        {job.type}
+                      </span>
+
+                      <span className="career-meta-dot">•</span>
+
+                      <span>
+                        <Clock3 size={15} />
+                        Experience: {job.experience}
+                      </span>
                     </div>
 
-                    {isExpanded && (
-                      <div className="career-job-details">
-                        <h4>About this role</h4>
-                        <p>{job.description}</p>
+                    <p className="career-job-skills">
+                      <strong>Required Skills:</strong>{" "}
+                      {job.skills}
+                    </p>
+                  </div>
 
-                        <h4>What we're looking for</h4>
-                        <ul>
-                          {job.requirements.map((requirement) => (
-                            <li key={requirement}>
-                              {requirement}
-                            </li>
-                          ))}
-                        </ul>
+                  <button
+                    type="button"
+                    className="career-job-toggle"
+                    onClick={() => toggleJob(job.id)}
+                    aria-expanded={isExpanded}
+                    aria-label={
+                      isExpanded
+                        ? `Collapse ${job.title}`
+                        : `Expand ${job.title}`
+                    }
+                  >
+                    {isExpanded ? "−" : "+"}
+                  </button>
+                </div>
 
-                        <button
-                          type="button"
-                          className="career-apply-btn"
-                          onClick={scrollToContact}
-                        >
-                          Apply for this role
-                          <ArrowRight size={17} />
-                        </button>
-                      </div>
-                    )}
-                  </article>
-                );
-              })
-            ) : (
-              <div className="career-no-results">
-                <Code2 size={32} />
-                <h3>No matching roles found</h3>
-                <p>
-                  Try changing your search or selecting different
-                  filters to explore available opportunities.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearch("");
-                    setJobType("All Jobs");
-                    setExperience("Experience");
-                    setLocation("Location");
-                  }}
-                >
-                  Clear filters
-                </button>
-              </div>
-            )}
-          </div>
+                {isExpanded && (
+                  <div className="career-job-details">
+                    <div className="career-job-divider" />
+
+                    <h4>Job Description</h4>
+                    <p>{job.description}</p>
+
+                    <p>
+                      <strong>Required Skills:</strong>{" "}
+                      {job.requiredSkills}
+                    </p>
+
+                    <p>
+                      <strong>Education:</strong>{" "}
+                      {job.education}
+                    </p>
+
+                    <p>
+                      <strong>Experience:</strong>{" "}
+                      {job.experienceDetails}
+                    </p>
+
+                    <button
+                      type="button"
+                      className="career-apply-button"
+                      onClick={() => openApplicationForm(job)}
+                    >
+                      Apply Now <ArrowRight size={18} />
+                    </button>
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {/* RESUME CTA */}
-      <section className="career-resume-section" id="career-resume">
-        <div className="career-resume-banner">
-          <div className="career-resume-content">
-            <h2>Didn't Find Your Role?</h2>
-            <p>
-              Send us your resume and details. We'll get back to you
-              when a role fits your profile.
-            </p>
-          </div>
-
-          <a
-            href="#contact"
-            className="career-resume-btn"
-            onClick={scrollToContact}
+      {/* Application form popup */}
+      {showApplicationForm && (
+        <div
+          className="career-modal-overlay"
+          onClick={closeApplicationForm}
+        >
+          <section
+            className="career-application-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="career-application-title"
+            onClick={(event) => event.stopPropagation()}
           >
-            Send Resume
-            <ArrowRight size={19} />
-          </a>
+            <button
+              type="button"
+              className="career-modal-close"
+              onClick={closeApplicationForm}
+              aria-label="Close application form"
+            >
+              <X size={20} />
+            </button>
+
+            <p className="career-modal-intro">
+              Share your details and upload your resume to apply for
+              a career opportunity at ASPL Tech Solution.
+            </p>
+
+            <h2 id="career-application-title">
+              APPLY NOW!
+            </h2>
+
+            <form
+              className="career-application-form"
+              onSubmit={handleSubmit}
+            >
+              <div className="career-form-grid">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  aria-label="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone"
+                  aria-label="Phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  aria-label="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Location"
+                  aria-label="Location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                />
+
+                <label className="career-form-field">
+                  <span>Position Applied for</span>
+                  <input
+                    type="text"
+                    name="position"
+                    value={formData.position}
+                    readOnly
+                  />
+                </label>
+
+                <label className="career-form-field">
+                  <span>
+                    Experience Level <b>*</b>
+                  </span>
+
+                  <select
+                    name="experienceLevel"
+                    value={formData.experienceLevel}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="0-1 Years">0-1 Years</option>
+                    <option value="1-3 Years">1-3 Years</option>
+                    <option value="3-5 Years">3-5 Years</option>
+                    <option value="5+ Years">5+ Years</option>
+                  </select>
+                </label>
+              </div>
+
+              <label className="career-resume-label">
+                Upload Resume (PDF/DOC/DOCX) <b>*</b>
+              </label>
+
+              <label className="career-resume-upload">
+                <Upload size={22} />
+
+                <span>
+                  {formData.resume
+                    ? formData.resume.name
+                    : "Choose your resume file"}
+                </span>
+
+                <small>
+                  PDF, DOC or DOCX · Maximum 5 MB
+                </small>
+
+                <small>
+                  File upload must be connected to a website backend.
+                </small>
+
+                <input
+                  type="file"
+                  name="resume"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <button
+                type="submit"
+                className="career-submit-button"
+                disabled={submitting}
+              >
+                {submitting
+                  ? "Submitting..."
+                  : "Submit Application"}
+              </button>
+            </form>
+          </section>
         </div>
-      </section>
+      )}
     </main>
   );
-}
+};
+
+export default Careers;

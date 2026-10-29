@@ -8,15 +8,17 @@ import {
   TrendingUp,
   Check,
   LayoutGrid,
-  Grid2X2,
-  SquareTerminal,
   PanelsTopLeft,
   Braces,
-  Megaphone,
   Plus,
   Minus,
 } from "lucide-react";
+
 import "./ServicesSection.css";
+
+import softwareImage from "../assets/3rdservice.png";
+import marketingImage from "../assets/1stservice.png";
+import creatorImage from "../assets/2ndservice.png";
 
 const services = [
   {
@@ -24,176 +26,209 @@ const services = [
     title: "Software Development",
     description:
       "Custom software, web applications and scalable technology solutions that fit your business needs and technical workflows.",
-    href: "/services#software-development",
+    id: "software",
+    href: "#software-development",
   },
   {
     icon: TrendingUp,
     title: "Digital Marketing",
     description:
-      "Strategic digital marketing to increase visibility, engagement and measurable growth through high-intent performance channels.",
-    href: "/services#digital-marketing",
+      "Strategic digital marketing to increase visibility, engagement and measurable growth through performance-driven channels.",
+    id: "marketing",
+    href: "#digital-marketing",
   },
   {
     icon: Mic,
     title: "Podcast & Creator Studio",
     description:
-      "Professional studio setups with the right acoustic treatment, commercial hardware, multi-camera feeds and sound reinforcement.",
-    href: "/services#creator-studio",
+      "Professional studio setups with acoustic treatment, commercial hardware, multi-camera feeds and sound reinforcement.",
+    id: "creator",
+    href: "#creator-studio",
   },
 ];
 
-const capabilities = [
-  {
-    icon: Check,
-    title: "Custom Web & Cloud Applications",
-    description:
-      "Modular architectures designed for high transactional throughput and zero downtime.",
-  },
-  {
-    icon: LayoutGrid,
-    title: "Business Platforms & Portals",
-    description:
-      "Internal ERPs, client dashboards, and mission-critical self-service workflows.",
-  },
-  {
-    icon: Braces,
-    title: "API Integrations & Modernization",
-    description:
-      "Seamless integration with payment gateways, CRMs, and third-party web services.",
-  },
-  {
-    icon: PanelsTopLeft,
-    title: "UI/UX Design & Prototyping",
-    description:
-      "Intuitive digital interaction design validated through customer journey research.",
-  },
-];
-
-const ServicesSection = () => {
-  const [activeService, setActiveService] = useState("software");
-
-  const specializedContent = {
-    software: {
-      label: "CORE ENGINEERING",
-      title: "Technology designed around",
-      highlight: "real business needs.",
+const capabilities = {
+  software: [
+    {
+      icon: Check,
+      title: "Custom Web & Cloud Applications",
       description:
-        "We build custom software, web applications and digital platforms that solve complex business challenges. Our approach combines clean architecture, modern technologies and a focus on usability, performance and long-term scalability.",
-      tags: ["Microservices", "Next.js & TypeScript", "Cloud Native AWS", "99.9% Uptime SLA"],
-      image: "/images/hero-technology.png",
-      imageLabel: "Active Production Stack",
+        "Modular architectures designed for performance, scalability and reliability.",
     },
-    marketing: {
-      label: "DIGITAL MARKETING",
-      title: "Digital marketing that drives measurable",
-      highlight: "business growth.",
+    {
+      icon: LayoutGrid,
+      title: "Business Platforms & Portals",
       description:
-        "We create data-driven digital marketing strategies that strengthen your brand presence, reach the right audience, and turn engagement into meaningful business opportunities. Our approach combines creative campaigns, targeted outreach and performance analytics to support sustainable growth.",
-      tags: ["Search Engine Optimization", "Analytics & Performance Reporting", "Paid Advertising & Campaigns", "Social Media & Content Marketing"],
-      image: "/images/digital-marketing-team.png",
-      imageLabel: "Measurable Business Growth.",
+        "Internal ERPs, client dashboards and self-service business workflows.",
     },
-creator: {
-  label: "PODCAST & CREATOR STUDIO",
-  title: "Spaces designed for impactful",
-  highlight: "content creation.",
-  description:
-    "We provide professional creator studio facilities designed for quality recording, clear audio, multi-camera production and engaging digital content.",
-  tags: [
-    "Custom Web & Cloud Applications",
-    "Business Platforms & Portals",
-    "API Integrations & Modernization",
-    "UI/UX Design & Prototyping",
+    {
+      icon: Braces,
+      title: "API Integrations & Modernization",
+      description:
+        "Integrations with payment gateways, CRMs and third-party web services.",
+    },
+    {
+      icon: PanelsTopLeft,
+      title: "UI/UX Design & Prototyping",
+      description:
+        "Intuitive interfaces shaped around user needs and customer journeys.",
+    },
   ],
-  image: "/images/creator-studio.png",
-  imageLabel: "Active Production Stack",
-},
-  };
 
-  const activeContent = specializedContent[activeService];
+  marketing: [
+    {
+      icon: Check,
+      title: "Search Engine Optimization",
+      description:
+        "Improve search visibility and help potential customers discover your business.",
+    },
+    {
+      icon: TrendingUp,
+      title: "Analytics & Performance Reporting",
+      description:
+        "Measure campaign performance and use data to improve results.",
+    },
+    {
+      icon: Braces,
+      title: "Paid Advertising & Campaigns",
+      description:
+        "Plan and optimize targeted campaigns around your business objectives.",
+    },
+    {
+      icon: PanelsTopLeft,
+      title: "Social Media & Content Marketing",
+      description:
+        "Build brand awareness and engagement through relevant content.",
+    },
+  ],
 
-  const activeCapabilities =
-  activeService === "marketing"
-    ? [
-        {
-          icon: Check,
-          title: "Custom Web & Cloud Applications",
-          description:
-            "Modular architectures designed for high transactional throughput and zero downtime.",
-        },
-        {
-          icon: LayoutGrid,
-          title: "Business Platforms & Portals",
-          description:
-            "Internal ERPs, client dashboards, and mission-critical self-service workflows.",
-        },
-        {
-          icon: Braces,
-          title: "API Integrations & Modernization",
-          description:
-            "Seamless integration with payment gateways, CRMs, and third-party web services.",
-        },
-        {
-          icon: PanelsTopLeft,
-          title: "UI/UX Design & Prototyping",
-          description:
-            "Intuitive digital interaction design validated through customer journey research.",
-        },
-      ]
-    : activeService === "creator"
-      ? [
-          {
-          icon: Check,
-          title: "Custom Web & Cloud Applications",
-          description:
-            "Modular architectures designed for high transactional throughput and zero downtime.",
-        },
-        {
-          icon: LayoutGrid,
-          title: "Business Platforms & Portals",
-          description:
-            "Internal ERPs, client dashboards, and mission-critical self-service workflows.",
-        },
-        {
-          icon: Braces,
-          title: "API Integrations & Modernization",
-          description:
-            "Seamless integration with payment gateways, CRMs, and third-party web services.",
-        },
-        {
-          icon: PanelsTopLeft,
-          title: "UI/UX Design & Prototyping",
-          description:
-            "Intuitive digital interaction design validated through customer journey research.",
-        },
-      ]
-      : capabilities;
-      const podcastCapabilities = [
-  {
-    icon: Check,
-    title: "Custom Web & Cloud Applications",
+  creator: [
+    {
+      icon: Mic,
+      title: "Podcast Recording",
+      description:
+        "Professional recording environments for creators and podcast hosts.",
+    },
+    {
+      icon: LayoutGrid,
+      title: "Video Production",
+      description:
+        "Multi-camera production for interviews, podcasts and digital content.",
+    },
+    {
+      icon: Check,
+      title: "Audio Setup",
+      description:
+        "Quality audio equipment and recording workflows.",
+    },
+    {
+      icon: PanelsTopLeft,
+      title: "Creator Workspace",
+      description:
+        "Studio facilities designed for professional content creation.",
+    },
+  ],
+};
+
+const specializedContent = {
+  software: {
+    label: "CORE ENGINEERING",
+    title: "Technology designed around",
+    highlight: "real business needs.",
     description:
-      "Modular architectures designed for high transactional throughput and zero downtime.",
+      "We build custom software, web applications and digital platforms that solve complex business challenges. Our approach combines clean architecture, modern technologies and a focus on usability, performance and long-term scalability.",
+    tags: [
+      "Microservices",
+      "Next.js & TypeScript",
+      "Cloud Native AWS",
+      "99.9% Uptime SLA",
+    ],
+    image: softwareImage,
+    imageLabel: "Active Production Stack",
+    imageHeading: "ENTERPRISE ARCHITECTURE",
+    imageDescription:
+      "Scalable APIs, event-driven queues and distributed clouds",
+    imageTech: "React / Go / AWS",
+  },
+
+  marketing: {
+    label: "DIGITAL MARKETING",
+    title: "Digital marketing that drives measurable",
+    highlight: "business growth.",
+    description:
+      "We create data-driven digital marketing strategies that strengthen your brand presence, reach the right audience and turn engagement into meaningful business opportunities. Our approach combines creative campaigns, targeted outreach and performance analytics to support sustainable growth.",
+    tags: [
+      "Search Engine Optimization",
+      "Analytics & Reporting",
+      "Paid Advertising",
+      "Social Media Marketing",
+    ],
+    image: marketingImage,
+    imageLabel: "Measurable Business Growth",
+    imageHeading: "DIGITAL GROWTH",
+    imageDescription:
+      "Data-driven campaigns, audience insights and performance analytics",
+    imageTech: "SEO / Analytics / Ads",
+  },
+
+  creator: {
+    label: "PODCAST & CREATOR STUDIO",
+    title: "Spaces designed for impactful",
+    highlight: "content creation.",
+    description:
+      "We provide professional creator studio facilities designed for quality recording, clear audio, multi-camera production and engaging digital content.",
+    tags: [
+      "Podcast Recording",
+      "Multi-Camera Production",
+      "Audio & Video Setup",
+      "Content Production",
+    ],
+    image: creatorImage,
+    imageLabel: "Active Production Stack",
+    imageHeading: "CREATOR STUDIO",
+    imageDescription:
+      "Professional recording, audio production and multi-camera workflows",
+    imageTech: "Audio / Video / Studio",
+  },
+};
+
+const faqItems = [
+  {
+    question: "What types of businesses do you work with?",
+    answer:
+      "We work with startups, small and medium-sized businesses, and established organisations looking for technology, marketing and content production solutions.",
   },
   {
-    icon: Grid2X2,
-    title: "Business Platforms & Portals",
-    description:
-      "Internal ERPs, client dashboards, and mission-critical self-service workflows.",
+    question: "How long does a typical project take?",
+    answer:
+      "Project timelines depend on your requirements and the complexity of the project. We discuss the estimated timeline before starting.",
   },
   {
-    icon: SquareTerminal,
-    title: "API Integrations & Modernization",
-    description:
-      "Seamless integration with payment gateways, CRMs, and third-party web services.",
+    question: "Do you provide ongoing support after launch?",
+    answer:
+      "Yes. Ongoing support and maintenance options can be discussed based on your project requirements.",
   },
   {
-    icon: PanelsTopLeft,
-    title: "UI/UX Design & Prototyping",
-    description:
-      "Intuitive digital interaction design validated through customer journey research.",
+    question: "Can you handle development and marketing together?",
+    answer:
+      "Yes. We provide software development and digital marketing services to help businesses manage both through one team.",
+  },
+  {
+    question: "How do you approach pricing?",
+    answer:
+      "Pricing depends on the scope, features and deliverables. Contact our team to discuss your requirements.",
+  },
+  {
+    question: "What is included in a podcast studio setup?",
+    answer:
+      "Studio services can include podcast recording, video production, audio setup and creator workspace facilities.",
   },
 ];
+
+export default function ServicesSection() {
+  const [activeService, setActiveService] = useState("software");
+  const activeContent = specializedContent[activeService];
+  const activeCapabilities = capabilities[activeService];
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({
@@ -204,7 +239,7 @@ creator: {
 
   return (
     <main className="services-page">
-      {/* SERVICE HERO */}
+      {/* HERO */}
       <section className="services-hero" id="services">
         <div className="services-hero-inner">
           <div className="services-hero-content">
@@ -232,7 +267,7 @@ creator: {
                 onClick={() => scrollTo("contact")}
               >
                 Discuss Your Project
-                <ArrowRight size={21} />
+                <ArrowRight size={20} />
               </button>
 
               <button
@@ -249,8 +284,8 @@ creator: {
           <div className="services-hero-visual">
             <div className="services-hero-image-frame">
               <img
-                src="/images/hero-technology.png"
-                alt="Technology and digital solutions workspace"
+                src={softwareImage}
+                alt="Technology solutions workspace"
               />
             </div>
 
@@ -292,19 +327,15 @@ creator: {
         <div className="services-container">
           <div className="core-services-heading">
             <div>
-              <span className="section-eyebrow">
-                WHAT WE OFFER
-              </span>
-
+              <span className="section-eyebrow">WHAT WE OFFER</span>
               <h2>
                 Three core services.
                 <br />
                 Built for enterprise impact.
               </h2>
-
               <p>
-                End-to-end solutions across bespoke software engineering,
-                performance marketing and physical studio setups.
+                End-to-end solutions across software engineering,
+                performance marketing and professional studio setups.
               </p>
             </div>
 
@@ -320,27 +351,24 @@ creator: {
               const Icon = service.icon;
 
               return (
-                <article
-                  className="core-service-card"
-                  key={service.title}
-                  id={
-                    service.title === "Software Development"
-                      ? "software-development"
-                      : service.title === "Digital Marketing"
-                        ? "digital-marketing"
-                        : "creator-studio"
-                  }
-                >
+                <article className="core-service-card" key={service.id}>
                   <div className="core-service-icon">
-                    <Icon size={28} />
+                    <Icon size={27} />
                   </div>
 
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
 
-                  <a href={service.href}>
-                    Explore <ArrowRight size={15} />
-                  </a>
+                  <button
+                    type="button"
+                    className="core-service-link"
+                    onClick={() => {
+                      setActiveService(service.id);
+                      scrollTo("specialized-capabilities");
+                    }}
+                  >
+                    Explore <ArrowRight size={16} />
+                  </button>
                 </article>
               );
             })}
@@ -349,8 +377,10 @@ creator: {
       </section>
 
       {/* SPECIALIZED CAPABILITIES */}
-      
-      <section className="specialized-section">
+      <section
+        className="specialized-section"
+        id="specialized-capabilities"
+      >
         <div className="services-container">
           <div className="specialized-heading">
             <span className="specialized-eyebrow">
@@ -365,53 +395,121 @@ creator: {
             </h2>
 
             <p>
-              Select a specialized practice below to explore how we execute
-              full-cycle engineering, revenue-focused marketing, and
-              broadcast-grade studio facilities.
+              Select a specialized practice below to explore our
+              engineering, marketing and content production services.
             </p>
 
-            <div className="specialized-tabs" role="tablist" aria-label="Specialized services">
-              <button type="button" role="tab" aria-selected={activeService === "software"} className={`specialized-tab ${activeService === "software" ? "active" : ""}`} onClick={() => setActiveService("software")}>
-                01 Software Development
-              </button>
-              <button type="button" role="tab" aria-selected={activeService === "marketing"} className={`specialized-tab ${activeService === "marketing" ? "active" : ""}`} onClick={() => setActiveService("marketing")}>
-                02 Digital Marketing
-              </button>
-              <button type="button" role="tab" aria-selected={activeService === "creator"} className={`specialized-tab ${activeService === "creator" ? "active" : ""}`} onClick={() => setActiveService("creator")}>
-                03 Podcast &amp; Creator Studio
-              </button>
+            <div
+              className="specialized-tabs"
+              role="tablist"
+              aria-label="Specialized services"
+            >
+              {services.map((service, index) => (
+                <button
+                  key={service.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeService === service.id}
+                  className={`specialized-tab ${
+                    activeService === service.id ? "active" : ""
+                  }`}
+                  onClick={() => setActiveService(service.id)}
+                >
+                  {String(index + 1).padStart(2, "0")}{" "}
+                  {service.title}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div className="specialized-layout" key={activeService}>
-            <div className="specialized-feature">
-              <span className="specialized-feature-label">{activeContent.label}</span>
-              <h3>{activeContent.title} <span>{activeContent.highlight}</span></h3>
+          <div className="specialized-layout">
+            {/* LEFT BLUE PANEL */}
+            <div className="specialized-feature" key={activeService}>
+              <span className="specialized-feature-label">
+                {activeContent.label}
+              </span>
+
+              <h3>
+                {activeContent.title}{" "}
+                <span>{activeContent.highlight}</span>
+              </h3>
+
               <p>{activeContent.description}</p>
+
               <h4>KEY DELIVERABLES &amp; TECH</h4>
+
               <div className="technology-tags">
-                {activeContent.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                {activeContent.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
               </div>
+
               <div className="specialized-feature-actions">
-                <button type="button" onClick={() => scrollTo("contact")}>
+                <button
+                  type="button"
+                  onClick={() => scrollTo("contact")}
+                >
                   Discuss a Project <ArrowRight size={17} />
                 </button>
-                <button type="button" onClick={() => scrollTo("core-services")}>Review Work</button>
+
+                <button
+                  type="button"
+                  className="secondary-feature-button"
+                  onClick={() => scrollTo("core-services")}
+                >
+                  Review Services
+                </button>
               </div>
             </div>
 
-            <div className="specialized-right">
+            {/* RIGHT IMAGE AND CAPABILITIES */}
+            <div
+              className="specialized-right"
+              key={`${activeService}-right`}
+            >
               <div className="specialized-image">
-                <img src={activeContent.image} alt={activeContent.label} onError={(event) => { event.currentTarget.style.display = "none"; }} />
-                <span className="active-production-label">{activeContent.imageLabel}</span>
+                <img
+                  src={activeContent.image}
+                  alt={`${activeContent.label} workspace`}
+                />
+
+                <div className="active-production-label">
+                  <span className="production-status-dot" />
+                  {activeContent.imageLabel}
+                </div>
+
+                {/* Show the image caption only for Podcast & Creator Studio */}
+                {activeService === "creator" && (
+                  <div className="specialized-image-caption">
+                    <div className="specialized-image-caption-content">
+                      <strong>{activeContent.imageHeading}</strong>
+                      <p>{activeContent.imageDescription}</p>
+                    </div>
+
+                    <span className="specialized-image-tech">
+                      {activeContent.imageTech}
+                    </span>
+                  </div>
+                )}
               </div>
-              <div className="capabilities-grid">
-                {activeCapabilities.map((capability) => {
-                  const Icon = capability.icon;
+
+              <div className="specialized-capabilities-grid">
+                {activeCapabilities.map((item) => {
+                  const Icon = item.icon;
+
                   return (
-                    <article className="capability-card" key={capability.title}>
-                      <div className="capability-icon"><Icon size={23} /></div>
-                      <div><h4>{capability.title}</h4><p>{capability.description}</p></div>
+                    <article
+                      className="specialized-capability-card"
+                      key={item.title}
+                    >
+                      <div className="specialized-capability-icon">
+                        <Icon size={22} />
+                      </div>
+
+                      <div>
+                        <h4>{item.title}</h4>
+                        <p>{item.description}</p>
+                      </div>
                     </article>
                   );
                 })}
@@ -421,41 +519,14 @@ creator: {
         </div>
       </section>
 
-      {/* FAQ SECTION - displayed after Specialized Capabilities */}
+      {/* FAQ */}
       <FAQSection />
     </main>
   );
-};
+}
 
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
-
-  const faqs = [
-    {
-      question: "What types of businesses do you work with?",
-      answer: "We work with startups, small and medium-sized businesses, and established organisations looking for technology, marketing, and content production solutions.",
-    },
-    {
-      question: "How long does a typical project take?",
-      answer: "Project timelines depend on your requirements and the complexity of the project. We discuss the estimated timeline before starting.",
-    },
-    {
-      question: "Do you provide ongoing support after launch?",
-      answer: "Yes, ongoing support and maintenance options can be discussed based on your project requirements.",
-    },
-    {
-      question: "Can you handle both development and marketing for the same project?",
-      answer: "Yes, we provide software development and digital marketing services to help businesses manage both through one team.",
-    },
-    {
-      question: "How do you approach pricing?",
-      answer: "Pricing depends on the scope, features, and deliverables. Contact our team to discuss your requirements.",
-    },
-    {
-      question: "What is included in a podcast studio setup?",
-      answer: "Our creator studio services can include podcast recording, video production, audio setup, and creator workspace facilities.",
-    },
-  ];
 
   return (
     <section className="aspl-faq" id="faq">
@@ -463,22 +534,49 @@ function FAQSection() {
         <div className="aspl-faq-intro">
           <span className="aspl-faq-label">FAQ</span>
           <h2>Questions before getting started.</h2>
-          <p>Quick answers to common questions about our services, process and project engagement. Have an inquiry not covered here? Reach out directly.</p>
+
+          <p>
+            Quick answers to common questions about our services,
+            process and project engagement. Have an inquiry not covered
+            here? Reach out directly.
+          </p>
+
           <a href="/contact" className="aspl-faq-contact">
-            Have a specific technical question? Speak with our team <span aria-hidden="true">→</span>
+            Have a specific technical question? Speak with our team →
           </a>
         </div>
 
         <div className="aspl-faq-list">
-          {faqs.map((faq, index) => {
+          {faqItems.map((faq, index) => {
             const isOpen = openIndex === index;
+
             return (
-              <div className={`aspl-faq-item ${isOpen ? "open" : ""}`} key={faq.question}>
-                <button type="button" className="aspl-faq-question" aria-expanded={isOpen} onClick={() => setOpenIndex(isOpen ? null : index)}>
+              <div
+                className={`aspl-faq-item ${isOpen ? "open" : ""}`}
+                key={faq.question}
+              >
+                <button
+                  type="button"
+                  className="aspl-faq-question"
+                  aria-expanded={isOpen}
+                  onClick={() =>
+                    setOpenIndex(isOpen ? null : index)
+                  }
+                >
                   <span>{faq.question}</span>
-                  {isOpen ? <Minus size={20} /> : <Plus size={20} />}
+
+                  {isOpen ? (
+                    <Minus size={20} />
+                  ) : (
+                    <Plus size={20} />
+                  )}
                 </button>
-                {isOpen && <div className="aspl-faq-answer"><p>{faq.answer}</p></div>}
+
+                {isOpen && (
+                  <div className="aspl-faq-answer">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
               </div>
             );
           })}
@@ -487,5 +585,3 @@ function FAQSection() {
     </section>
   );
 }
-
-export default ServicesSection;
