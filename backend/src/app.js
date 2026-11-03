@@ -27,6 +27,15 @@ app.get("/", (req, res) => {
 
 // API routes
 app.use("/api/social-links", socialLinkRoutes);
+app.get("/debug-routes", (req, res) => {
+  res.json({
+    socialLinksMounted: true,
+    routes: socialLinkRoutes.stack.map((r) => ({
+      path: r.route?.path,
+      methods: r.route?.methods,
+    })),
+  });
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 app.use("/api/applications", applicationRoutes);
