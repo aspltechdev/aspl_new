@@ -123,60 +123,80 @@ const Careers = () => {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+ 
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (!formData.resume) {
-      alert("Please upload your resume.");
-      return;
+  if (submitting) return;
+
+  if (!formData.resume) {
+    alert("Please upload your resume.");
+    return;
+  }
+
+  const allowedTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+
+  if (!allowedTypes.includes(formData.resume.type)) {
+    alert("Please upload a PDF, DOC, or DOCX file.");
+    return;
+  }
+
+  if (formData.resume.size > 5 * 1024 * 1024) {
+    alert("Your resume must be 5 MB or smaller.");
+    return;
+  }
+
+  const data = new FormData();
+  data.append("name", formData.name);
+  data.append("phone", formData.phone);
+  data.append("email", formData.email);
+  data.append("location", formData.location);
+  data.append("position", formData.position);
+  data.append("experienceLevel", formData.experienceLevel);
+  data.append("resume", formData.resume);
+
+  try {
+    setSubmitting(true);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/applications`,
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Application submission failed.");
     }
 
-    const allowedTypes = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ];
+    alert("Your application has been submitted successfully!");
 
-    if (!allowedTypes.includes(formData.resume.type)) {
-      alert("Please upload a PDF, DOC, or DOCX file.");
-      return;
-    }
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      location: "",
+      position: "",
+      experienceLevel: "0-1 Years",
+      resume: null,
+    });
 
-    if (formData.resume.size > 5 * 1024 * 1024) {
-      alert("Your resume must be 5 MB or smaller.");
-      return;
-    }
+    setShowApplicationForm(false);
 
-    /*
-      Connect your backend API here.
-
-      Example using Axios:
-
-      const data = new FormData();
-      data.append("name", formData.name);
-      data.append("phone", formData.phone);
-      data.append("email", formData.email);
-      data.append("location", formData.location);
-      data.append("position", formData.position);
-      data.append("experienceLevel", formData.experienceLevel);
-      data.append("resume", formData.resume);
-
-      await axios.post("/api/careers/apply", data);
-    */
-
-    try {
-      setSubmitting(true);
-
-      alert(
-        "Form validation successful. Connect your backend API to submit the application."
-      );
-    } catch (error) {
-      console.error("Application error:", error);
-      alert("Unable to process your application. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  } catch (error) {
+    console.error("Application submission error:", error);
+    alert(error.message || "Unable to submit your application. Please try again.");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <main className="careers-page">

@@ -11,6 +11,8 @@ import {
 import "./ContactSection.css";
 
 const ContactSection = () => {
+  const [loading, setLoading] = useState(false);
+const [status, setStatus] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,13 +27,39 @@ const ContactSection = () => {
       [e.target.name]: e.target.value,
     });
   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  if (loading) return;
 
-    // Connect this form to your backend or email service when ready.
-    console.log("Contact form submission:", formData);
-    alert("Thank you! Your request has been captured.");
+  setLoading(true);
+  setStatus("");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/leads`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.projectType,
+          message: formData.message,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Submission failed");
+    }
+
+    setStatus("Thank you! Your request has been submitted successfully.");
 
     setFormData({
       name: "",
@@ -40,7 +68,13 @@ const ContactSection = () => {
       projectType: "",
       message: "",
     });
-  };
+  } catch (error) {
+    console.error("Contact submission error:", error);
+    setStatus(error.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const contactCards = [
     {
@@ -260,12 +294,16 @@ const ContactSection = () => {
             <p className="contact-form-note">
               This site is protected by reCAPTCHA.
             </p>
-
+{status && (
+  <p role="status" className="contact-form-status">
+    {status}
+  </p>
+)}
             <button
-              type="submit"
+              type="submit" disabled={loading}
               className="contact-btn contact-btn-primary contact-submit-btn"
             >
-              Submit Request <Send size={17} />
+              {loading ? "Submitting..." : "Submit Request"} <Send size={17} />
             </button>
           </form>
         </div>
