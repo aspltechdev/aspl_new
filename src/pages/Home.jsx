@@ -375,7 +375,7 @@ const Home = () => {
               <div className="aspl-service-content">
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <a href="#contact" className="aspl-service-cta">
+                <a href="/services" className="aspl-service-cta">
                   Explore our services <ArrowRight size={16} />
                 </a>
               </div>
