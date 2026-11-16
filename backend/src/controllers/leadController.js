@@ -1,3 +1,4 @@
+
 import prisma from "../config/db.js";
 
 export const createLead = async (req, res) => {
@@ -11,26 +12,35 @@ export const createLead = async (req, res) => {
       message,
     } = req.body;
 
-    if (![name, email, phone, message].every((v) => typeof v === "string" && v.trim())) {
+    if (![name, email, phone, message].every(
+      (value) => typeof value === "string" && value.trim()
+    )) {
       return res.status(400).json({
+        success: false,
         message: "Name, email, phone and message are required",
       });
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return res.status(400).json({ message: "Please provide a valid email address" });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid email address",
+      });
+    }
 
     const lead = await prisma.leads.create({
       data: {
         name: name.trim(),
         email: email.trim().toLowerCase(),
         phone: phone.trim(),
-        company: company?.trim() || null,
-        service: service?.trim() || null,
+        company: typeof company === "string" ? company.trim() || null : null,
+        service: typeof service === "string" ? service.trim() || null : null,
         message: message.trim(),
       },
     });
 
     return res.status(201).json({
+      success: true,
       message: "Enquiry submitted successfully",
       lead: {
         ...lead,
@@ -41,6 +51,7 @@ export const createLead = async (req, res) => {
     console.error("Create lead error:", error);
 
     return res.status(500).json({
+      success: false,
       message: "Unable to submit enquiry",
     });
   }
@@ -73,6 +84,7 @@ export const getLeads = async (req, res) => {
     console.error("Get leads error:", error);
 
     return res.status(500).json({
+      success: false,
       message: "Unable to fetch leads",
     });
   }
@@ -81,7 +93,15 @@ export const getLeads = async (req, res) => {
 export const updateLeadStatus = async (req, res) => {
   try {
     const { status } = req.body;
-    if (!/^\d+$/.test(req.params.id) || BigInt(req.params.id) <= 0n) return res.status(400).json({ message: "Invalid lead ID" });
+    const id = req.params.id;
+
+    if (!/^[1-9]\d*$/.test(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid lead ID",
+      });
+    }
+
     const allowedStatuses = [
       "NEW",
       "CONTACTED",
@@ -92,13 +112,14 @@ export const updateLeadStatus = async (req, res) => {
 
     if (!allowedStatuses.includes(status)) {
       return res.status(400).json({
+        success: false,
         message: "Invalid lead status",
       });
     }
 
     const lead = await prisma.leads.update({
       where: {
-        id: BigInt(req.params.id),
+        id: BigInt(id),
       },
       data: {
         status,
@@ -107,6 +128,7 @@ export const updateLeadStatus = async (req, res) => {
     });
 
     return res.json({
+      success: true,
       message: "Lead status updated",
       lead: {
         ...lead,
@@ -117,6 +139,7 @@ export const updateLeadStatus = async (req, res) => {
     console.error("Update lead error:", error);
 
     return res.status(404).json({
+      success: false,
       message: "Lead not found or invalid ID",
     });
   }
