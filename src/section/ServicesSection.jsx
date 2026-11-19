@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowRight,
   ChevronDown,
@@ -226,9 +226,21 @@ const faqItems = [
 ];
 
 export default function ServicesSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
   const [activeService, setActiveService] = useState("software");
+
   const activeContent = specializedContent[activeService];
   const activeCapabilities = capabilities[activeService];
+
+  const heroImages = [softwareImage, marketingImage, creatorImage];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({
@@ -236,13 +248,39 @@ export default function ServicesSection() {
       block: "start",
     });
   };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroImages.length);
+    }, 3000);
 
+    return () => clearInterval(interval);
+  }, []);
   return (
     <main className="services-page">
       {/* HERO */}
+            {/* HERO WITH BACKGROUND IMAGE SLIDER */}
       <section className="services-hero" id="services">
+
+        {/* BACKGROUND SLIDES */}
+        <div className="services-hero-slides">
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`services-hero-slide ${
+                activeSlide === index ? "active" : ""
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+            />
+          ))}
+        </div>
+
+        {/* DARK OVERLAY */}
+        <div className="services-hero-overlay" />
+
+        {/* HERO CONTENT */}
         <div className="services-hero-inner">
           <div className="services-hero-content">
+
             <span className="services-hero-eyebrow">
               OUR EXPERTISE
             </span>
@@ -279,49 +317,27 @@ export default function ServicesSection() {
                 <ChevronDown size={19} />
               </button>
             </div>
-          </div>
 
-          <div className="services-hero-visual">
-            <div className="services-hero-image-frame">
-              <img
-                src={softwareImage}
-                alt="Technology solutions workspace"
-              />
-            </div>
-
-            <div className="services-floating-card services-floating-software">
-              <span className="services-floating-icon software-icon">
-                <Code2 size={21} />
-              </span>
-              <span>
-                <strong>Software</strong>
-                <small>Development</small>
-              </span>
-            </div>
-
-            <div className="services-floating-card services-floating-marketing">
-              <span className="services-floating-icon marketing-icon">
-                <TrendingUp size={21} />
-              </span>
-              <span>
-                <strong>Digital</strong>
-                <small>Marketing</small>
-              </span>
-            </div>
-
-            <div className="services-floating-card services-floating-creator">
-              <span className="services-floating-icon creator-icon">
-                <Mic size={21} />
-              </span>
-              <span>
-                <strong>Creator</strong>
-                <small>Studio Setup</small>
-              </span>
-            </div>
           </div>
         </div>
-      </section>
 
+        {/* SLIDER DOTS */}
+        <div className="services-hero-dots">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              aria-label={`Show slide ${index + 1}`}
+              aria-current={activeSlide === index ? "true" : "false"}
+              className={`services-hero-dot ${
+                activeSlide === index ? "active" : ""
+              }`}
+              onClick={() => setActiveSlide(index)}
+            />
+          ))}
+        </div>
+
+      </section>
       {/* THREE CORE SERVICES */}
       <section className="core-services-section" id="core-services">
         <div className="services-container">

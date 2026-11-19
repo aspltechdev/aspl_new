@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapPin,
   BriefcaseBusiness,
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import "./Careers.css";
 import careersImage from "../assets/1stcareer.png";
+import careerBackground1 from "../assets/career-bg-1.png";
+import careerBackground2 from "../assets/career-bg-2.png";
 const jobs = [
   {
     id: "uiux",
@@ -48,6 +50,16 @@ const jobs = [
 ];
 
 const Careers = () => {
+  const careerBackgrounds = [careerBackground1, careerBackground2];
+  const [activeCareerBackground, setActiveCareerBackground] = useState(0);
+
+  useEffect(() => {
+    const slideTimer = window.setInterval(() => {
+      setActiveCareerBackground((current) => (current + 1) % careerBackgrounds.length);
+    }, 3000);
+    return () => window.clearInterval(slideTimer);
+  }, []);
+
   const [expandedJob, setExpandedJob] = useState(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -202,6 +214,18 @@ const handleSubmit = async (event) => {
     <main className="careers-page">
       {/* Careers hero */}
       <section className="careers-hero">
+        <div className="careers-hero-backgrounds" aria-hidden="true">
+          {careerBackgrounds.map((background, index) => (
+            <div
+              key={background}
+              className={`careers-hero-background ${
+                activeCareerBackground === index ? "active" : ""
+              }`}
+              style={{ backgroundImage: `url(${background})` }}
+            />
+          ))}
+        </div>
+
         <div className="careers-hero-content">
           <span className="careers-eyebrow">
             GROW YOUR CAREER
@@ -241,6 +265,21 @@ const handleSubmit = async (event) => {
             src={careersImage}
             alt="Professional exploring career opportunities"
           />
+        </div>
+
+        <div className="careers-hero-dots" aria-label="Career background slides">
+          {careerBackgrounds.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              className={`careers-hero-dot ${
+                activeCareerBackground === index ? "active" : ""
+              }`}
+              onClick={() => setActiveCareerBackground(index)}
+              aria-label={`Show career background ${index + 1}`}
+              aria-pressed={activeCareerBackground === index}
+            />
+          ))}
         </div>
       </section>
 

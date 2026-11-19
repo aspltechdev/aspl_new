@@ -1,5 +1,7 @@
+
 import express from "express";
 import cors from "cors";
+
 import socialLinkRoutes from "./routes/socialLinkRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
@@ -9,12 +11,30 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: (process.env.CLIENT_URL || "http://localhost:5173").split(",").map((value) => value.trim()),
-  })
-);
+// Allowed frontend origins
+const allowedOrigins = (
+  process.env.CLIENT_URL || "http://localhost:5173"
+)
+  .split(",")
+  .map((value) => value.trim());
 
+// CORS configuration
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,6 +47,7 @@ app.get("/", (req, res) => {
 
 // API routes
 app.use("/api/social-links", socialLinkRoutes);
+
 app.get("/debug-routes", (req, res) => {
   res.json({
     socialLinksMounted: true,
@@ -36,6 +57,7 @@ app.get("/debug-routes", (req, res) => {
     })),
   });
 });
+
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 app.use("/api/applications", applicationRoutes);
@@ -55,9 +77,16 @@ app.use((err, req, res, next) => {
     });
   }
 
-  const status = Number.isInteger(err.status) && err.status >= 400 && err.status < 600 ? err.status : 500;
+  const status =
+    Number.isInteger(err.status) && err.status >= 400 && err.status < 600
+      ? err.status
+      : 500;
+
   return res.status(status).json({
-    message: status === 500 ? "Internal server error" : (err.message || "Bad request"),
+    message:
+      status === 500
+        ? "Internal server error"
+        : err.message || "Bad request",
   });
 });
 

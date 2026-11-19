@@ -11,6 +11,7 @@ import {
   Check,
   Play,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 import "./AboutSection.css";
 import aboutOfficeImage from "../assets/1stabout.png";
 import aboutteamImage from "../assets/2ndabout.png";
@@ -18,6 +19,9 @@ import aboutphilosophyImage from "../assets/3rdabout.png";
 import creativeStrategyImage from "../assets/4thabout.png";
 import broadcastStudioImage from "../assets/5thabout.png";
 import aboutApproachImage from "../assets/6thabout.png";
+import digitalAboutImage from "../assets/digitaabout.png";
+import softwareAboutImage from "../assets/softwareabout.png";
+import podcastAboutImage from "../assets/podcastabout.png";
 
 const assets = {
   office: aboutOfficeImage,
@@ -105,6 +109,21 @@ function SectionBadge({ children }) {
 }
 
 function About() {
+  const aboutSlides = [
+    digitalAboutImage,
+    softwareAboutImage,
+    podcastAboutImage,
+  ];
+
+const [currentAboutSlide, setCurrentAboutSlide] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentAboutSlide((prev) => (prev + 1) % aboutSlides.length);
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, []);
   const handleContact = () => {
     window.location.href = "/contact";
   };
@@ -113,6 +132,17 @@ function About() {
     <main className="about-page">
       {/* ================= HERO ================= */}
       <section className="about-hero">
+        <div className="about-hero-slideshow" aria-hidden="true">
+          {aboutSlides.map((image, index) => (
+            <div
+              key={index}
+              className={`about-hero-slide ${
+                currentAboutSlide === index ? "active" : ""
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+            />
+          ))}
+        </div>
         <div className="about-hero-inner">
           <div className="about-hero-content">
             <SectionBadge>ABOUT ASPL</SectionBadge>
@@ -184,6 +214,20 @@ function About() {
               <span className="about-video-time">02:18</span>
             </button>
           </div>
+        </div>
+        <div className="about-hero-slide-dots" aria-label="About hero slideshow controls">
+          {aboutSlides.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              className={`about-hero-slide-dot ${
+                currentAboutSlide === index ? "active" : ""
+              }`}
+              onClick={() => setCurrentAboutSlide(index)}
+              aria-label={`Show background image ${index + 1}`}
+              aria-current={currentAboutSlide === index ? "true" : undefined}
+            />
+          ))}
         </div>
       </section>
 

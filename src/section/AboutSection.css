@@ -1538,3 +1538,200 @@
     font-size: 21px;
   }
 }
+
+
+
+
+/* =========================================================
+   ABOUT HERO SLIDESHOW + BLUE/TEAL DIM OVERLAY
+========================================================= */
+.about-page .about-hero {
+  position: relative;
+  isolation: isolate;
+  background: #001833;
+}
+
+.about-page .about-hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.about-page .about-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.about-page .about-hero-slide.active {
+  opacity: 1;
+}
+
+.about-page .about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    rgba(0, 24, 48, 0.90) 0%,
+    rgba(0, 55, 75, 0.78) 45%,
+    rgba(0, 95, 115, 0.65) 100%
+  );
+}
+
+.about-page .about-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.about-page .about-hero-visual {
+  min-height: 400px;
+  overflow: visible;
+  z-index: 2;
+}
+
+.about-page .about-office-image {
+  display: block;
+  min-height: 400px;
+  object-fit: cover;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .about-page .about-hero-visual,
+  .about-page .about-office-image {
+    min-height: 300px;
+  }
+}
+
+/* ABOUT HERO SLIDESHOW DOTS */
+.about-page .about-hero-slide-dots {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.about-page .about-hero-slide-dot {
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.about-page .about-hero-slide-dot.active {
+  width: 35px;
+  border-color: #ff482b;
+  background: #ff482b;
+}
+
+.about-page .about-hero-slide-dot:hover {
+  border-color: #ff482b;
+}
+
+@media (max-width: 600px) {
+  .about-page .about-hero-slide-dots {
+    bottom: 20px;
+  }
+}
+/* ==========================================
+   ABOUT HERO SLIDESHOW DOTS - VISIBILITY FIX
+========================================== */
+
+.about-page .about-hero {
+  position: relative !important;
+}
+
+.about-page .about-hero-slide-dots {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 25px !important;
+  transform: translateX(-50%) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+
+  gap: 12px !important;
+
+  z-index: 10000 !important;
+
+  width: auto !important;
+  height: 20px !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Inactive dots */
+.about-page .about-hero-slide-dots button.about-hero-slide-dot {
+  appearance: none !important;
+  display: block !important;
+
+  width: 12px !important;
+  height: 12px !important;
+
+  min-width: 12px !important;
+  min-height: 12px !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border-radius: 50% !important;
+  border: 1.5px solid #ffffff !important;
+
+  background: transparent !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  cursor: pointer !important;
+}
+
+/* Active dot */
+.about-page .about-hero-slide-dots button.about-hero-slide-dot.active {
+  width: 35px !important;
+  min-width: 35px !important;
+
+  height: 12px !important;
+  min-height: 12px !important;
+
+  border-radius: 20px !important;
+  border: 1.5px solid #ff482b !important;
+
+  background: #ff482b !important;
+}
+
+/* Hover */
+.about-page .about-hero-slide-dots button.about-hero-slide-dot:hover {
+  border-color: #ff482b !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .about-page .about-hero-slide-dots {
+    bottom: 20px !important;
+  }
+}

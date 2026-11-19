@@ -14,7 +14,31 @@ import fourthHomeImage from "../assets/4thhome.png";
 import fifthHomeImage from "../assets/5thhome.png";
 import reactHeroImage from "../assets/reacthero.png";
 import rameshKumar from "../assets/rameshkumar.png";
-import { useState } from "react";
+import stars from "../assets/7star.png";
+import a4events from "../assets/a4aevents.png";
+import anbarasan from "../assets/anbarasan.png";
+import asokan from "../assets/asoka.png";
+import bysen from "../assets/bysen.png";
+import endless from "../assets/endless.png";
+import fiyabuild from "../assets/fiyabuilders.png";
+import futuremax from "../assets/futuremax.png";
+import gillsngreens from "../assets/gillsngreens.png";
+import globetech from "../assets/globetech.png";
+import gpassociates from "../assets/gpassociates.png";
+import jaipharma from "../assets/jaipharma.png";
+import kitd from "../assets/kitd.png";
+import masterchemicals from "../assets/masterchemicals.png";
+import mehashruthi from "../assets/mehashruthi.png";
+import ravi from "../assets/ravi.png";
+import samarth from "../assets/samarth.png";
+import snga from "../assets/snga.png";
+import sukanya from "../assets/sukanya.png";
+import lms from "../assets/lms.png";
+import { useEffect, useState } from "react";
+
+import podcastImage from "../assets/podcast.png";
+import digitalMarketingImage from "../assets/digitalmarketing.png";
+import softwareDeveloperImage from "../assets/softwaredeveloper.png";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -97,6 +121,7 @@ const testimonials = [
   },
 ];
 
+
 const clientLogos = [
   { name: "Avant Enterprise", image: avantLogo },
   { name: "De Mentee Technologies", image: dementeeLogo },
@@ -106,6 +131,26 @@ const clientLogos = [
   { name: "Safety Glass", image: safetyglassLogo },
   { name: "S.D. Foods", image: sdfoodsLogo },
   { name: "Uvagai Foundation", image: uvagaiLogo },
+  { name: "7 Stars", image: stars },
+  { name: "A4 Events", image: a4events },
+  { name: "Anbarasan", image: anbarasan },
+  { name: "Asokan", image: asokan },
+  { name: "Bysen", image: bysen },
+  { name: "Endless", image: endless },
+  { name: "Fiya Builders", image: fiyabuild },
+  { name: "Future Max", image: futuremax },
+  { name: "Gills & Greens", image: gillsngreens },
+  { name: "Globetech", image: globetech },
+  { name: "GP Associates", image: gpassociates },
+  { name: "Jaipur Pharma", image: jaipharma },
+  { name: "KITD", image: kitd },
+  { name: "Master Chemicals", image: masterchemicals },
+{ name: "Mehashruthi", image: mehashruthi },
+  { name: "Ravi", image: ravi },
+  { name: "Samarth", image: samarth },
+  { name: "SNGA", image: snga },
+  { name: "Sukanya", image: sukanya },  
+{ name: "LMS", image: lms },
 ];
 
 
@@ -114,7 +159,21 @@ const Home = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [projectType, setProjectType] = useState("Software Development");
+const heroImages = [
+  podcastImage,
+  digitalMarketingImage,
+  softwareDeveloperImage,
+];
 
+const [heroSlide, setHeroSlide] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setHeroSlide((current) => (current + 1) % heroImages.length);
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, []);
   const filteredServices =
     activeFilter === "all"
       ? services
@@ -129,12 +188,28 @@ const Home = () => {
       );
     });
   };
+  
 
   return (
     <main className="aspl-home">
       {/* HERO SECTION */}
-      <section className="aspl-hero" id="home">
-        <div className="aspl-hero-inner">
+    <section className="aspl-hero" id="home">
+
+  {/* AUTOMATIC HERO BACKGROUND SLIDESHOW */}
+  <div className="aspl-hero-slideshow">
+    {heroImages.map((image, index) => (
+      <div
+        key={index}
+        className={`aspl-hero-slide ${
+          heroSlide === index ? "active" : ""
+        }`}
+        style={{ backgroundImage: `url(${image})` }}
+      />
+    ))}
+  </div>
+
+  <div className="aspl-hero-inner">
+    
           <div className="aspl-hero-content">
             <span className="aspl-eyebrow aspl-eyebrow-dark">
               DIGITAL EXCELLENCE
@@ -170,6 +245,18 @@ const Home = () => {
     alt=""
     className="aspl-orbit"
   />
+</div>
+<div className="aspl-hero-dots">
+  {heroImages.map((_, index) => (
+    <button
+      key={index}
+      className={`aspl-hero-dot ${
+        heroSlide === index ? "active" : ""
+      }`}
+      onClick={() => setHeroSlide(index)}
+      aria-label={`Go to slide ${index + 1}`}
+    />
+  ))}
 </div>
           </div>
       </section>

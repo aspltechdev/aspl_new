@@ -69,87 +69,99 @@
 \========================================= */
 
 
+/* =========================================
+   SERVICES HERO - BACKGROUND IMAGE SLIDER
+========================================= */
 
 .services-hero {
-
-  align-items: flex-start;
-
   position: relative;
-
   isolation: isolate;
-
   width: 100%;
-
   min-height: 650px;
-
   overflow: hidden;
-
-  background:
-
-    radial-gradient(
-
-      ellipse at 78% 48%,
-
-      rgba(0, 153, 190, 0.75) 0%,
-
-      rgba(0, 112, 151, 0.35) 40%,
-
-      transparent 70%
-
-    ),
-
-    linear-gradient(110deg, #001833 0%, #00486f 50%, #006b8f 100%);
-
+  background: #00243b;
   color: #fff;
-
 }
 
+/* Background slider */
 
+.services-hero-slides {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.services-hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: scale(1.04);
+
+  transition:
+    opacity 1.2s ease-in-out,
+    transform 4s ease;
+
+  pointer-events: none;
+}
+
+.services-hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Overlay */
+
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 24, 43, 0.92) 0%,
+    rgba(0, 34, 53, 0.82) 45%,
+    rgba(0, 35, 55, 0.45) 100%
+  );
+}
+
+/* Hero layout */
 
 .services-hero-inner {
-
-  display: grid;
+  display: flex;
+  align-items: center;
 
   width: min(calc(100% - 80px), 1360px);
-
   min-height: 650px;
 
   margin-inline: auto;
-
-  padding: 120px 0 70px;
-
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-
-  align-items: start;
-
-  gap: 60px;
-
+  padding: 100px 0 120px;
 }
-
-
 
 .services-hero-content {
-
   position: relative;
-
   z-index: 2;
 
+  width: 100%;
+  max-width: 800px;
   min-width: 0;
-
 }
 
-
+/* Eyebrow */
 
 .services-hero-eyebrow {
-
   display: inline-flex;
-
   align-items: center;
 
   padding: 8px 16px;
 
   border: 1px solid rgba(0, 211, 226, 0.32);
-
   border-radius: 30px;
 
   background: rgba(0, 35, 55, 0.42);
@@ -157,162 +169,152 @@
   color: #52e0ee;
 
   font-size: 13px;
-
   font-weight: 700;
-
   letter-spacing: 0.65px;
-
 }
 
-
+/* Heading */
 
 .services-hero-content h1 {
-
   margin: 27px 0 24px;
 
   color: #fff;
 
-  font-size: clamp(40px, 4.2vw, 66px);
-
+  font-size: clamp(40px, 5vw, 72px);
   font-weight: 800;
-
   line-height: 1.08;
-
   letter-spacing: -2px;
-
 }
-
-
 
 .services-hero-content h1 span {
-
   color: #ff6139;
-
 }
 
-
+/* Paragraph */
 
 .services-hero-content > p {
-
-  max-width: 650px;
-
+  max-width: 680px;
   margin: 0;
 
   color: #d1e0ec;
 
   font-size: 18px;
-
   line-height: 1.7;
-
 }
 
-
+/* Buttons */
 
 .services-hero-actions {
-
   display: flex;
-
   flex-wrap: wrap;
-
   align-items: center;
 
   gap: 14px;
-
   margin-top: 34px;
-
 }
 
-
-
 .services-hero-primary,
-
 .services-hero-secondary {
-
   display: inline-flex;
 
   min-height: 54px;
 
   justify-content: center;
-
   align-items: center;
 
   gap: 12px;
-
   padding: 14px 24px;
 
   border-radius: 40px;
 
   font-size: 15px;
-
   font-weight: 700;
 
   cursor: pointer;
 
   transition:
-
     transform 0.25s ease,
-
     background 0.25s ease,
-
     box-shadow 0.25s ease;
-
 }
 
-
-
 .services-hero-primary {
-
   border: 0;
-
   background: #ff6339;
-
   color: #fff;
 
   box-shadow: 0 12px 28px rgba(255, 91, 46, 0.2);
-
 }
-
-
 
 .services-hero-primary:hover {
-
   transform: translateY(-3px);
-
   background: #ff7847;
-
 }
-
-
 
 .services-hero-secondary {
-
   border: 1px solid rgba(255, 255, 255, 0.16);
-
-  background: #163c56;
-
+  background: rgba(22, 60, 86, 0.85);
   color: #e3eaf1;
-
 }
-
-
 
 .services-hero-secondary svg {
-
   color: #00d2ca;
-
 }
-
-
 
 .services-hero-secondary:hover {
-
   transform: translateY(-3px);
-
   background: #204b67;
-
 }
 
+/* Slider dots */
 
+.services-hero-dots {
+  position: absolute;
+  z-index: 5;
+
+  left: 50%;
+  bottom: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  transform: translateX(-50%);
+}
+
+.services-hero-dot {
+  width: 11px;
+  height: 11px;
+
+  padding: 0;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.services-hero-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.services-hero-dot.active {
+  width: 32px;
+
+  border-color: #ff6339;
+  border-radius: 20px;
+
+  background: #ff6339;
+}
 
 /* Hero image */
 
@@ -2792,5 +2794,92 @@
 
   .core-service-card > p {
     font-size: 14px;
+  }
+}
+/* =========================================
+   SERVICES HERO RESPONSIVE OVERRIDES
+========================================= */
+
+@media (max-width: 1100px) {
+  .services-hero-inner {
+    width: calc(100% - 56px);
+    min-height: 600px;
+    padding: 100px 0 110px;
+  }
+
+  .services-hero-content h1 {
+    font-size: clamp(38px, 5vw, 58px);
+  }
+
+  .services-hero-content > p {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 760px) {
+  .services-hero {
+    min-height: 600px;
+  }
+
+  .services-hero-inner {
+    width: calc(100% - 36px);
+    min-height: 600px;
+    padding: 75px 0 100px;
+  }
+
+  .services-hero-content h1 {
+    margin: 23px 0 18px;
+    font-size: clamp(36px, 9vw, 52px);
+    letter-spacing: -1.4px;
+  }
+
+  .services-hero-content > p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .services-hero-actions {
+    gap: 11px;
+    margin-top: 25px;
+  }
+
+  .services-hero-primary,
+  .services-hero-secondary {
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .services-hero-dots {
+    bottom: 25px;
+  }
+
+  .services-hero-dot {
+    width: 9px;
+    height: 9px;
+  }
+
+  .services-hero-dot.active {
+    width: 28px;
+  }
+}
+
+@media (max-width: 420px) {
+  .services-hero-inner {
+    width: calc(100% - 28px);
+  }
+
+  .services-hero-content h1 {
+    font-size: 35px;
+  }
+
+  .services-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .services-hero-primary,
+  .services-hero-secondary {
+    width: 100%;
   }
 }

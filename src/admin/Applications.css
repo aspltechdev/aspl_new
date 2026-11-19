@@ -1,0 +1,32 @@
+
+@import "./Leads.css";
+
+.records-page {
+  width: 100%;
+}
+
+.records-page .primary-action {
+  width: fit-content;
+  min-width: 160px;
+}
+
+.records-page .modal-section {
+  width: 100%;
+}
+
+.records-page .admin-table td {
+  vertical-align: middle;
+}
+
+.records-page .admin-table th {
+  white-space: nowrap;
+}
+
+.records-page .admin-table td {
+  white-space: nowrap;
+}
+
+.records-page .admin-table td:first-child {
+  white-space: normal;
+  min-width: 180px;
+}
