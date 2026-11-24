@@ -193,7 +193,7 @@
 .aspl-back-to-top {
   position: absolute;
   right: 3%;
-  bottom: 82px;
+  bottom: 100px; /* Moved 18px upward */
   width: 50px;
   height: 50px;
   display: flex;
@@ -239,9 +239,10 @@
     grid-column: 2 / 4;
   }
 
-  .aspl-back-to-top {
-    right: 0;
-  }
+ .aspl-back-to-top {
+  right: 0;
+  bottom: 135px;
+}
 }
 
 /* ================================
@@ -304,10 +305,10 @@
     font-size: 12px;
   }
 
-  .aspl-back-to-top {
-    right: 0;
-    bottom: 120px;
-    width: 54px;
+.aspl-back-to-top {
+  right: 0;
+  bottom: 135px;
+width: 54px;
     height: 54px;
   }
 

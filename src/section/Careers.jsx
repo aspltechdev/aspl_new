@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import "./Careers.css";
 import careersImage from "../assets/1stcareer.png";
-import careerBackground1 from "../assets/career-bg-1.png";
-import careerBackground2 from "../assets/career-bg-2.png";
+import careerBackground1 from "../assets/careerhero1.png";
+import careerBackground2 from "../assets/carrerhero2.png";
 const jobs = [
   {
     id: "uiux",

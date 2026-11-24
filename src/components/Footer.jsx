@@ -30,17 +30,17 @@ const Footer = () => {
   const socialLinks = [
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/",
+      href: "https://www.linkedin.com/company/aspl-tech-solutions/",
       Icon: FaLinkedin,
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/",
+      href: "https://www.instagram.com/aspltechsolutions/",
       Icon: FaInstagram,
     },
     {
       label: "YouTube",
-      href: "https://www.youtube.com/",
+      href: "https://www.youtube.com/@AsplTechSolutions",
       Icon: FaYoutube,
     },
   ];

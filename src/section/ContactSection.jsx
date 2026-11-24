@@ -1,18 +1,17 @@
-
 import { useState } from "react";
 import {
-  ArrowRight,
   Send,
   Phone,
   Mail,
   Clock3,
-  MapPin,
 } from "lucide-react";
 import "./ContactSection.css";
+import careerImage from "../assets/careerhero1.png";
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
-const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,54 +26,59 @@ const [status, setStatus] = useState("");
       [e.target.name]: e.target.value,
     });
   };
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  if (loading) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  setLoading(true);
-  setStatus("");
+    if (loading) return;
 
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/leads`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: formData.projectType,
-          message: formData.message,
-        }),
+    setLoading(true);
+    setStatus("");
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/leads`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            service: formData.projectType,
+            message: formData.message,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Submission failed");
       }
-    );
 
-    const result = await response.json();
+      setStatus(
+        "Thank you! Your request has been submitted successfully."
+      );
 
-    if (!response.ok) {
-      throw new Error(result.message || "Submission failed");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact submission error:", error);
+      setStatus(
+        error.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setStatus("Thank you! Your request has been submitted successfully.");
-
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      projectType: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error("Contact submission error:", error);
-    setStatus(error.message || "Something went wrong. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const contactCards = [
     {
@@ -106,7 +110,20 @@ const handleSubmit = async (e) => {
   return (
     <div className="contact-page">
       {/* Contact Hero */}
-      <section className="contact-hero">
+      <section
+        className="contact-hero"
+        style={{
+          backgroundImage: `
+            linear-gradient(
+              90deg,
+              rgba(0, 15, 38, 0.95) 0%,
+              rgba(0, 24, 51, 0.82) 45%,
+              rgba(0, 24, 51, 0.35) 100%
+            ),
+            url(${careerImage})
+          `,
+        }}
+      >
         <div className="contact-hero-content">
           <span className="contact-eyebrow">
             START A CONVERSATION
@@ -126,7 +143,10 @@ const handleSubmit = async (e) => {
           </p>
 
           <div className="contact-hero-actions">
-            <a href="#contact-form" className="contact-btn contact-btn-primary">
+            <a
+              href="#contact-form"
+              className="contact-btn contact-btn-primary"
+            >
               Send Your Requirement <Send size={18} />
             </a>
 
@@ -174,7 +194,8 @@ const handleSubmit = async (e) => {
         <h2>Bengaluru, Karnataka, India</h2>
 
         <p className="contact-location-description">
-          For the final website, add the verified Google Maps embed for the current ASPL office location.
+          For the final website, add the verified Google Maps embed
+          for the current ASPL office location.
         </p>
 
         <div className="contact-map">
@@ -189,7 +210,10 @@ const handleSubmit = async (e) => {
       </section>
 
       {/* Response Process and Form */}
-      <section className="contact-process-section" id="contact-form">
+      <section
+        className="contact-process-section"
+        id="contact-form"
+      >
         <div className="contact-process-card">
           <h2>How We Respond</h2>
 
@@ -262,22 +286,31 @@ const handleSubmit = async (e) => {
                 <option value="" disabled>
                   Project type
                 </option>
+
                 <option value="Software Development">
                   Software Development
                 </option>
+
                 <option value="Web Development">
                   Web Development
                 </option>
+
                 <option value="App Development">
                   App Development
                 </option>
-                <option value="UI/UX Design">UI/UX Design</option>
+
+                <option value="UI/UX Design">
+                  UI/UX Design
+                </option>
+
                 <option value="Digital Marketing">
                   Digital Marketing
                 </option>
+
                 <option value="Podcast & Creator Studio">
                   Podcast & Creator Studio
                 </option>
+
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -294,16 +327,23 @@ const handleSubmit = async (e) => {
             <p className="contact-form-note">
               This site is protected by reCAPTCHA.
             </p>
-{status && (
-  <p role="status" className="contact-form-status">
-    {status}
-  </p>
-)}
+
+            {status && (
+              <p
+                role="status"
+                className="contact-form-status"
+              >
+                {status}
+              </p>
+            )}
+
             <button
-              type="submit" disabled={loading}
+              type="submit"
+              disabled={loading}
               className="contact-btn contact-btn-primary contact-submit-btn"
             >
-              {loading ? "Submitting..." : "Submit Request"} <Send size={17} />
+              {loading ? "Submitting..." : "Submit Request"}
+              <Send size={17} />
             </button>
           </form>
         </div>

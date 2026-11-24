@@ -29,7 +29,7 @@ import jaipharma from "../assets/jaipharma.png";
 import kitd from "../assets/kitd.png";
 import masterchemicals from "../assets/masterchemicals.png";
 import mehashruthi from "../assets/mehashruthi.png";
-import ravi from "../assets/ravi.png";
+
 import samarth from "../assets/samarth.png";
 import snga from "../assets/snga.png";
 import sukanya from "../assets/sukanya.png";
@@ -146,7 +146,7 @@ const clientLogos = [
   { name: "KITD", image: kitd },
   { name: "Master Chemicals", image: masterchemicals },
 { name: "Mehashruthi", image: mehashruthi },
-  { name: "Ravi", image: ravi },
+
   { name: "Samarth", image: samarth },
   { name: "SNGA", image: snga },
   { name: "Sukanya", image: sukanya },  
@@ -166,7 +166,21 @@ const heroImages = [
 ];
 
 const [heroSlide, setHeroSlide] = useState(0);
+useEffect(() => {
+  const scriptId = "elfsight-platform-script";
 
+  if (!document.getElementById(scriptId)) {
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "https://elfsightcdn.com/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  return () => {
+    // Keep the script loaded when navigating between pages.
+  };
+}, []);
 useEffect(() => {
   const interval = setInterval(() => {
     setHeroSlide((current) => (current + 1) % heroImages.length);
@@ -523,57 +537,19 @@ useEffect(() => {
               media founders.
             </h2>
 
-            <div className="aspl-satisfaction">
-              <span className="aspl-satisfaction-symbol">99%</span>
-              <span className="aspl-satisfaction-star">★</span>
-              <p>Verified Enterprise &amp; Student Satisfaction</p>
-            </div>
+          <div className="aspl-satisfaction">
+  <span className="aspl-satisfaction-symbol">4.9</span>
+  <span className="aspl-satisfaction-star">★</span>
+  <p>Rated 4.9/5 from 11 Google Reviews</p>
+</div>
           </div>
 
-          <article className="aspl-testimonial-card">
-            <div className="aspl-quote-mark">“</div>
-
-            <div className="aspl-testimonial-content">
-              <blockquote>“{testimonial.quote}”</blockquote>
-
-              <div className="aspl-testimonial-divider" />
-
-              <div className="aspl-testimonial-bottom">
-                <div className="aspl-testimonial-person">
-                 <div className="aspl-testimonial-avatar">
-  <img
-    src={rameshKumar}
-    alt="Ramesh Kumar"
-    className="aspl-testimonial-avatar-img"
-  />
+         <div className="aspl-google-reviews">
+  <div
+    className="elfsight-app-a1931402-9b04-49ec-b7cd-2655ae026bae"
+    data-elfsight-app-lazy
+  ></div>
 </div>
-
-                  <div>
-                    <h3>{testimonial.name}</h3>
-                    <p>{testimonial.role}</p>
-                  </div>
-                </div>
-
-                <div className="aspl-testimonial-controls">
-                  <button
-                    type="button"
-                    aria-label="Previous testimonial"
-                    onClick={() => changeTestimonial(-1)}
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Next testimonial"
-                    onClick={() => changeTestimonial(1)}
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 

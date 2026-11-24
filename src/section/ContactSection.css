@@ -29,22 +29,20 @@
 /* Hero section */
 
 .contact-hero {
+  position: relative;
   min-height: 690px;
   display: flex;
-  align-items: flex-start;
-  padding: 130px max(6.5%, calc((100% - 1320px) / 2)) 80px;
+  align-items: center;
+  padding: 110px max(6.5%, calc((100% - 1320px) / 2)) 90px;
   color: #fff;
-  background:
-    radial-gradient(
-      ellipse at 72% 40%,
-      rgba(4, 132, 179, 0.98) 0%,
-      rgba(0, 107, 143, 0.82) 43%,
-      transparent 78%
-    ),
-    linear-gradient(110deg, #001833 0%, #004c70 48%, #006b8f 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .contact-hero-content {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 1050px;
 }
@@ -337,7 +335,7 @@
 }
 
 .contact-form-card h2 {
-  margin: 22px 0 22px;
+  margin: 22px 0;
   color: #102236;
   font-family: "Inter", sans-serif;
   font-size: 27px;
@@ -393,6 +391,16 @@
   box-shadow: 0 0 0 3px rgba(4, 132, 179, 0.1);
 }
 
+.contact-form-card select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 48px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23173a60' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 22px center;
+  background-size: 15px;
+}
+
 .contact-form-note {
   margin: 20px 0;
   color: #9298a0;
@@ -400,8 +408,25 @@
   line-height: 1.6;
 }
 
+.contact-form-status {
+  margin: 15px 0;
+  padding: 12px 15px;
+  border-radius: 9px;
+  color: #075985;
+  background: #e0f2fe;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .contact-submit-btn {
   border: none;
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Responsive layout */
@@ -443,8 +468,10 @@
 
 @media (max-width: 760px) {
   .contact-hero {
-    min-height: auto;
+    min-height: 600px;
     padding: 100px 24px 85px;
+    background-position: 60% center;
+    background-size: cover;
   }
 
   .contact-eyebrow {

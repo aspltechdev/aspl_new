@@ -4499,3 +4499,17 @@
   background: #ff4b2b;
   border-color: #ff4b2b;
 }
+/* GOOGLE REVIEWS WIDGET */
+
+.aspl-google-reviews {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.aspl-google-reviews .elfsight-app-a1931402-9b04-49ec-b7cd-2655ae026bae {
+  width: 100%;
+  min-height: 350px;
+}
